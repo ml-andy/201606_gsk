@@ -1,2 +1,212 @@
 @import "base.scss";
+body,html{
+	@include r(100%,100%);
+	overflow: hidden;
+}
+.loading{
+	@include flt;
+	z-index: 99999;
+	background-color: rgba(255,255,255,0.75);
+	span{
+		@include am(200px,50px);
+		@include font(15px,50px,#e33024);
+		text-align: center;
+		letter-spacing: 1px;
+	}
+}
+.menu{
+	@include artvh(33,34,11);
+	@include border-radius(0 0 15px 15px);
+	background-color: #e33024;
+	transition:0.35s;
+	overflow: hidden;
+	z-index: 9;
+	&.on{
+		@include artvh(170,430,11);
+		.menubtn{
+			@include altvh(170,31);
+			border-bottom:1px solid rgba(255,255,255,0.5);
+			span{
+				left: getVH(17);
+				margin-top: getVH(1);
+			}
+			&:before{opacity: 1;}
+			&:after{opacity: 1;}
+		}
+		.menubox{
+			opacity: 1;
+		}
+	}
+	.menubtn{
+		$color-main: #fff;
+		$color-active: #fff;
+		@include altvh(33,34);
+		cursor: pointer;
+		z-index: 999;
+		transition: 0.35s;
+		border-bottom:1px solid rgba(255,255,255,0);
+		&:before{
+			content:"CLOSE";
+			@include alt;
+			z-index: 0;
+			opacity: 0;
+			transition:0.35s;
+			font-size: 15px;
+			font-weight: bolder;
+			line-height: getVH(31);
+			color:#fbf9f9;
+			text-indent: getVH(45);			
+		}
+		&:after{
+			content:"";
+			@include alt;
+			z-index: 0;
+			opacity: 0;
+			transition:0.35s;
+			background: url(../images/s_logo.png) no-repeat;
+			background-size: contain;
+			background-position: right center;
+		}
+		&.on {
+		  	.top {
+		    	@include transform(translateY(getVH(5)) translateX(0) rotate(45deg));
+		    	background: $color-active;
+		  	}
+		  	.middle {
+		    	opacity: 0;
+		    	background: $color-active;
+		  	}    
+		  	.bottom {
+		    	@include transform(translateY(getVH(-5)) translateX(0) rotate(-45deg));
+		    	background: $color-active;
+		  	}
+		}  
+		span {
+			background: $color-main;
+			border: none;
+			height: 3px;
+			width: getVH(25);
+			position: absolute;
+			top: getVH(7);
+			left: getVH(4);
+			transition:  all .35s ease;
+			cursor: pointer;    
+			z-index: 1;
+		  	&:nth-of-type(2) {
+		    	top: getVH(12);
+		  	}    
+		  	&:nth-of-type(3) {
+		    	top: getVH(18);
+		  	}
+		}
+	}
+	.menubox{
+		@include r;
+		margin-top: getVH(31);
+		opacity: 0;
+		z-index: 0;
+		transition:0.35s;
+		ul{
+			@include r;
+			li{
+				@include r;
+				border-bottom:1px solid rgba(255,255,255,0.5);
+				&:last-child{border:0;}
+				.menua{
+					@include r;
+					height:getVH(38);
+					font-size: 15px;
+					font-weight: bolder;
+					line-height: getVH(38);
+					color:#fbf9f9;
+					text-indent: getVH(17);
+					&:hover{opacity: 0.8;}
+				}
+				.shopa{
+					@include r;
+					box-sizing:border-box;
+					padding-left: getVH(17);
+					margin-top: getVH(13);
+					img{height:100%;width:auto;}
+					&:nth-child(2){height:getVH(28);}
+					&:nth-child(3){height:getVH(15);}
+					&:nth-child(4){height:getVH(25);}
+					&:last-child{margin-bottom: getVH(7);}
+				}
+			}
+		}
+	}
+}
+.logo{
+	@include altvh(103,37);
+	z-index: 9;
+	background: url(../images/logo.png) no-repeat;
+	background-size: contain;
+	background-position: center;
+	a{@include alt;}
+}
+.wrapper{
+	@include alt;
+	z-index: 0;	
+	transition:0.5s;
+	.wrapperin{
+		@include alt;
+		z-index: 0;		
+		transition:0.5s;		
+	}
+	&.page1{
+		.wrapperin{
+			@include transform(translate(0,0));
+			&.off{transition:0;}
+		}
+		@include transform(translate(0,0));		
+	}
+	&.page2{
+		.wrapperin{&.off{transition:0;}}
+		@include transform(translate(0,100%));
+	}
+	&.page3{
+		.wrapperin{
+			@include transform(translate(-100%,0));
+			&.off{transition:0;}
+		}
+		@include transform(translate(0,0));
+	}
+	&.page4{
+		.wrapperin{
+			@include transform(translate(100%,0));
+			&.off{transition:0;}
+		}
+		@include transform(translate(0,0));
+	}
+	.page2{
+		@include alb(100%,100%,0,100%);
+	}
+	.page1{
+		@include alt;
+	}
+	.page3{
+		@include alt(100%,100%,100%);
+	}
+	.page4{
+		@include art(100%,100%,100%);		
+	}
+}
+.footer{
+	@include alb(100%,auto);
+	z-index: 1;
+	overflow: hidden;
+	.gobtn{
+		@include arbvh(192,108);
+		background: url(../images/footer_btn.png) no-repeat;
+		background-size: contain;
+		background-position: center;
+		z-index: 1;
+	}
+	.bg{
+		@include r;
+		z-index: 0;
+		img{width: 100%;}
+	}
+}
 
