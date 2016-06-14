@@ -3,6 +3,12 @@ body,html{
 	@include r(100%,100%);
 	overflow: hidden;
 }
+body{
+	background: url(../images/page1_bg.jpg) no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+$pagespeed:0.5s;
 .loading{
 	@include flt;
 	z-index: 99999;
@@ -36,7 +42,7 @@ body,html{
 		.menubox{
 			opacity: 1;
 		}
-	}
+	}	
 	.menubtn{
 		$color-main: #fff;
 		$color-active: #fff;
@@ -137,6 +143,28 @@ body,html{
 		}
 	}
 }
+.fb_share_btn{
+	@include artvh(33,34,50);
+	background: url(../images/fbshare_btn.png) no-repeat;
+	background-size: contain;
+	background-position: center;
+	cursor: pointer;
+	z-index: 8;
+	transition:0.35s;
+	&:before{
+		content:"";
+		@include alt;
+		background: url(../images/fbshare_btn_hover.png) no-repeat;
+		background-size: contain;
+		background-position: center;
+		z-index: 1;
+		opacity: 0;
+		transition:0.3s;
+	}
+	&:hover{
+		&:before{opacity: 1;}
+	}
+}
 .logo{
 	@include altvh(103,37);
 	z-index: 9;
@@ -148,60 +176,296 @@ body,html{
 .wrapper{
 	@include alt;
 	z-index: 0;	
-	transition:0.5s;
+	transition:$pagespeed;	
 	.wrapperin{
 		@include alt;
 		z-index: 0;		
-		transition:0.5s;		
+		transition:$pagespeed;	
+		&.page1{@include transform(translate(0,0));}
+		&.page3{@include transform(translate(-200%,0));}
+	}
+	.wrapper_top{
+		@include alb(100%,100%,0,100%);
 	}
 	&.page1{
 		.wrapperin{
 			@include transform(translate(0,0));
-			&.off{transition:0;}
+			&.off{transition:0s;}
 		}
 		@include transform(translate(0,0));		
 	}
 	&.page2{
-		.wrapperin{&.off{transition:0;}}
-		@include transform(translate(0,100%));
+		.wrapperin{&.off{transition:0s;}}
+		@include transform(translate(0,100%));		
 	}
 	&.page3{
 		.wrapperin{
 			@include transform(translate(-100%,0));
-			&.off{transition:0;}
+			&.off{transition:0s;}
 		}
 		@include transform(translate(0,0));
 	}
 	&.page4{
-		.wrapperin{
-			@include transform(translate(100%,0));
-			&.off{transition:0;}
-		}
-		@include transform(translate(0,0));
+		.wrapperin{&.off{transition:0s;}}
+		@include transform(translate(0,100%));		
 	}
+	
 	.page2{
-		@include alb(100%,100%,0,100%);
+		@include alt(100%,100%);
+		z-index: 0;
+		opacity: 0;
+		transition:0s;
+		&.yes{transition:$pagespeed;}
+		&.on{opacity: 1;z-index: 1;}
 	}
-	.page1{
-		@include alt;
-	}
+	.page4{
+		@include alt(100%,100%);
+		z-index: 0;
+		opacity: 0;
+		transition:0s;
+		&.yes{transition:$pagespeed;}
+		&.on{opacity: 1;z-index: 1;}
+	}	
 	.page3{
 		@include alt(100%,100%,100%);
 	}
-	.page4{
-		@include art(100%,100%,100%);		
-	}
+	.page1{
+		@include alt;
+		overflow: hidden;
+		.scenes_all{
+			@include alt;
+			transition:$pagespeed;
+			&.scenes2{
+				@include transform(translate(0,-100%));
+			}
+			.scenes1{
+				@include alt;
+				overflow: hidden;
+				.main{
+					@include amvh(332,460);
+					z-index: 1;
+					img{width: 100%;}					
+					.light{
+						@include altvh(300,150,16);
+						background: url(../images/light.png) no-repeat;
+						background-size: cover;
+						background-position: center;
+					}
+					.title{
+						@include altvh(324,212,0,0,-162,-106);
+						background: url(../images/title.png) no-repeat;
+						background-size: contain;
+						background-position: center;
+						left: 50%;
+						top:50%;
+					}
+					.start_btn{
+						@include albvh(100,113,116);
+						cursor: pointer;
+						// overflow: hidden;
+						&:before{
+							content:"";
+							@include alt;
+							background: url(../images/start_btn_hover.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							// transition:0.3s;
+							opacity: 0;
+							z-index: 1;					
+						}
+						&:after{
+							content:"";
+							@include alt;
+							background: url(../images/start_btn.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							// transition:0.3s;
+							opacity: 1;
+							z-index: 0;	
+						}
+						&:hover{
+							&:before{opacity: 1;}
+							&:after{opacity: 0;}
+						}
+					}
+				}
+			}
+			.scenes2{
+				@include alt(100%,100%,0,100%);
+				overflow: hidden;
+				.main{
+					@include amvh(805,490);
+					z-index: 1;
+					.title{
+						@include altvh(263,53,271);
+						background: url(../images/page1_s2_titile.png) no-repeat;
+						background-size: contain;
+						background-position: center;
+					}
+					.databox{
+						@include altvh(310,300,100,90);
+						.databoxin{
+							@include alt;
+							overflow: hidden;
+							ul{
+								@include r;
+								li{
+									@include r;
+									margin-bottom: 20px;
+									box-sizing:border-box;
+									padding-left: 25px;
+									&:before{
+										content:"1";
+										@include alt(20px,20px);
+										@include font(15px,20px,#fefefe,bolder,'Arial');
+										text-align: center;
+										background-color: #000000;
+									}
+									&:nth-child(1){
+										&:before{content:"1";}
+									}
+									&:nth-child(2){
+										&:before{content:"2";}
+									}
+									&:nth-child(3){
+										&:before{content:"3";}
+									}
+									&:nth-child(4){
+										&:before{content:"4";}
+									}
+									&:nth-child(5){
+										&:before{content:"5";}
+									}
+									.q{
+										@include r;
+										@include font(15px,20px,#ca0f02,bolder);
+										margin-bottom: 12px;
+										text-align: left;
+									}
+									.ans{
+										@include r;
+										text-align: left;
+										span{
+											@include font(13px,16px,#161616,bolder);
+											display: inline-block;
+											vertical-align: top;
+											margin-right: 20px;
+											margin-bottom: 13px;
+											.q1ans{
+												display: inline-block;
+												vertical-align: top;
+												width: 16px;
+												height: 16px;
+												box-sizing:border-box;
+												border:1px solid #db0225;
+												margin-right: 3px;
+												cursor: pointer;
+												&.on{
+													background-color: #db0225;
+												}
+											}											
+										}
+										.bar{
+											@include r(70%,12px);
+											@include border-radius(6px);
+											box-sizing:border-box;
+											border:1px solid #ca0f02;
+											padding: 3px 5px;
+											margin-bottom: 12px;
+											z-index: 9;
+											.light{
+												@include alt(30px,36px,0px,-12px);
+												background: url(../images/page1_s2_light.png) no-repeat;
+												background-position: center;
+												cursor: pointer;
+												z-index: 2;
+											}
+											.cover{
+												@include r(100%,100%);
+												@include border-radius(3px);
+												background-color: #e33024;
+												z-index: 0;
+											}
+										}
+										.num{
+											@include r(70%,15px);
+											clear: both;
+											z-index: 0;
+											.n1{
+												@include r(auto,100%);
+												@include font(13px,15px,#161616,bolder);
+												text-align: center;
+											}
+											.n2{
+												@include am(auto,auto);
+												@include font(13px,15px,#161616,bolder);
+												text-align: center;
+											}
+											.n3{
+												@include r(auto,100%);
+												@include font(13px,15px,#161616,bolder);
+												float: right;
+												text-align: center;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					.tree_ani{
+						@include artvh(380,380,0,50);
+						background: url(../images/page1_s2_ani.png) no-repeat;
+						background-size: contain;
+						background-position: right center;
+					}
+					.sure_btn{
+						@include albvh(140,40,0,0,-70);
+						left: 50%;
+						cursor: pointer;
+						&:after{
+							content:"";
+							@include alt;
+							background: url(../images/page1_s2_sure_btn.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							z-index: 0;
+							transition:0.3s;
+							opacity: 1;
+						}
+						&:before{
+							content:"";
+							@include alt;
+							background: url(../images/page1_s2_sure_btn_hover.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							z-index: 1;
+							transition:0.3s;
+							opacity: 0;
+						}
+						&:hover{
+							&:before{opacity: 1;}
+							&:after{opacity: 0;}
+						}
+					}
+				}
+			}
+		}
+		
+	}	
 }
 .footer{
 	@include alb(100%,auto);
 	z-index: 1;
 	overflow: hidden;
+	pointer-events:none;
 	.gobtn{
 		@include arbvh(192,108);
 		background: url(../images/footer_btn.png) no-repeat;
 		background-size: contain;
 		background-position: center;
 		z-index: 1;
+		pointer-events:auto;
 	}
 	.bg{
 		@include r;
