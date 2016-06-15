@@ -228,6 +228,469 @@ $pagespeed:0.5s;
 	}	
 	.page3{
 		@include alt(100%,100%,100%);
+		.scenes_all{
+			@include alt;
+			transition:$pagespeed;
+			&.scenes2{
+				@include transform(translate(0,-100%));
+			}
+			.scenes1{
+				@include alt;
+				overflow: hidden;
+				&.on{
+					.main{						
+						.bg{
+							span{
+								transition-delay:0s;
+							}
+							.top{@include alt(100%,1px);}
+							.bottom{@include arb(100%,1px);}
+							.left{@include alb(1px,100%);}
+							.right{@include art(1px,100%);}
+							.corner{
+								.c{
+									transition-delay:1s;
+									opacity: 1;
+									background: url(../images/page1_s3_arrow.png) no-repeat;
+									background-position: center;
+								}
+								.c1{
+									@include alt(17px,17px,-9px,-11px);								
+								}
+								.c2{
+									@include art(17px,17px,-9px,-11px);
+									@include transform(rotateZ(90deg));
+								}
+								.c3{
+									@include alb(17px,17px,-9px,-11px);
+									@include transform(rotateZ(-90deg));
+								}
+								.c4{
+									@include arb(17px,17px,-9px,-11px);
+									@include transform(rotateZ(180deg));
+								}
+							}
+						}
+					}
+				}
+				.main{
+					@include amvh(570,480);
+					z-index: 1;
+					.title{
+						@include altvh(224,53,145);
+						background: url(../images/page3_s1_title.png) no-repeat;
+						background-size: contain;
+						background-position: center;
+					}
+					.content{
+						@include altvh(470,330,72,78);
+						z-index: 5;
+						display: none;
+						transition:0s;
+						*{box-sizing:border-box;transition:0s;}
+						.w{
+							@include r;
+							@include font(2.5vh,3vh,#010101,bolder);
+							padding-right: 6.6vh;
+							margin-bottom: 4vh;
+						}
+						.pd{
+							@include r;
+							margin-bottom: 2.5vh;
+							img{@include r;padding-right: 6.6vh;}
+						}
+						.user_data{
+							@include r;
+							margin-bottom: 4vh;
+							padding-right: 6.6vh;
+							ul{
+								@include r;
+								li{
+									@include r;
+									margin-bottom: 2vh;
+									.data{
+										position: relative;
+										margin-right: 1.3vh;
+										display: inline-block;
+										vertical-align: top;
+										.lt{
+											@include font(2vh,4vh,#010101,bolder);
+											display: inline-block;
+											vertical-align: top;
+											margin-right: 0.8vh;
+										}
+										.rt{
+											display: inline-block;
+											vertical-align: top;
+											input{
+												@include font(2vh,4vh,#010101,bolder);
+												height: 4vh;
+												border:1px solid #083171;
+												display: inline-block;
+												background-color: #fff;
+												padding: 0.5vh;
+											}
+											.user_name{width: 19.5vh;}
+											.user_phone{width:33.33vh;}
+											.user_mail{width:62.6vh;}											
+											.user_code{width: 15.3vh;}
+										}
+									}
+									.mapdata{
+										@include r;
+										.lt{
+											@include r(16vh,100%);
+											@include font(2vh,4vh,#010101,bolder);
+											margin-right: 0.8vh;
+										}
+										.rt{
+											@include r(53vh,100%);
+											select{
+												@include r(15vh,4vh);
+												@include font(2vh,4vh,#010101,bolder);
+												border:1px solid #083171;
+												background-color: #fff;
+												margin-right: 1.6vh;
+												margin-bottom: 1.6vh;
+											}
+											.shop_addr{
+												@include r(38.33vh,4vh);
+												@include font(2vh,3vh,#010101,bolder);
+												height: 4vh;
+												border:1px solid #083171;
+												background-color: #fff;
+												padding: 0.5vh;
+											}
+											.lastnumber{
+												@include arb(auto,auto);
+												@include font(2vh,4vh,#ca0f02,bolder);
+											}
+										}										
+										.map{
+											@include r(100%,26vh);
+											margin-top: 1.6vh;
+										}
+									}
+									img.code{
+										width: 11.8vh;
+										height: 3.6vh;
+										vertical-align: top;
+										display: inline-block;
+										margin-right: 1.6vh;
+									}
+									.agreebox{
+										@include r;
+										.checkbox{
+											width: 4vh;
+											height:4vh;
+											vertical-align: top;
+											display: inline-block;
+											margin-right: 1.6vh;
+											background-color: #fff;
+											border:1px solid #083171;
+											cursor: pointer;
+											&.on{
+												background-color: #083171;
+											}
+										}
+										a{
+											@include font(2vh,4vh,#010101,bolder);
+											width: auto;
+											display: inline-block;
+										}
+									}
+									.sw{
+										@include r;
+										@include font(1.8vh,2.5vh,#666666);
+										&:before{
+											content:"※";
+											display: inline-block;
+											margin-right: 1vh;											
+										}
+									}
+								}
+							}
+						}
+					}
+					.p3s1gobtn{
+						@include albvh(140,41,215);
+						cursor: pointer;
+						&:after{
+							content:"";
+							@include alt;
+							background: url(../images/page1_s3_gobtn.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							z-index: 0;
+							transition:0s;
+						}
+						&:before{
+							content:"";
+							@include alt;
+							background: url(../images/page1_s3_gobtn_hover.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							z-index: 1;
+							transition:0s;
+							opacity: 0;
+						}
+						&:hover{
+							&:after{opacity: 0;}
+							&:before{opacity: 1;}
+						}
+					}					
+					.bg{
+						@include altvh(550,355,7,64);
+						z-index: 0;						
+						span{
+							background-color: #e33024;
+							transition:1s;
+							transition-delay:0.3s;
+						}
+						.top{@include alt(0,1px);}
+						.bottom{@include arb(0,1px);}
+						.left{@include alb(1px,0);}
+						.right{@include art(1px,0);}
+						.corner{
+							@include alt;
+							.c{
+								transition:0.3s;
+								transition-delay:0s;
+								opacity: 0;
+								background: url(../images/page1_s3_arrow.png) no-repeat;
+								background-position: center;
+							}
+							.c1{
+								@include alt(17px,17px);								
+							}
+							.c2{
+								@include art(17px,17px);
+								@include transform(rotateZ(90deg));
+							}
+							.c3{
+								@include alb(17px,17px);
+								@include transform(rotateZ(-90deg));
+							}
+							.c4{
+								@include arb(17px,17px);
+								@include transform(rotateZ(180deg));
+							}
+						}
+					}
+				}
+			}
+			.scenes2{
+				@include alt(100%,100%,0,100%);
+				overflow: hidden;
+				&.on{
+					.main{
+						.bg{
+							span{
+								transition-delay:0s;
+							}
+							.top{@include alt(100%,1px);}
+							.bottom{@include arb(100%,1px);}
+							.left{@include alb(1px,100%);}
+							.right{@include art(1px,100%);}
+							.corner{
+								.c{
+									transition-delay:1s;
+									opacity: 1;
+									background: url(../images/page1_s3_arrow.png) no-repeat;
+									background-position: center;
+								}
+								.c1{
+									@include alt(17px,17px,-9px,-11px);								
+								}
+								.c2{
+									@include art(17px,17px,-9px,-11px);
+									@include transform(rotateZ(90deg));
+								}
+								.c3{
+									@include alb(17px,17px,-9px,-11px);
+									@include transform(rotateZ(-90deg));
+								}
+								.c4{
+									@include arb(17px,17px,-9px,-11px);
+									@include transform(rotateZ(180deg));
+								}
+							}
+						}
+					}
+				}
+				.main{
+					@include amvh(570,480);
+					z-index: 1;
+					.title{
+						@include altvh(297,53,136);
+						background: url(../images/page3_s2_title.png) no-repeat;
+						background-size: contain;
+						background-position: center;
+					}
+					.content{
+						@include altvh(630,292,10,88);
+						z-index: 5;
+						&:before{
+							@include am(1px,100%);
+							background-color: #ca0f02;
+							content:"";
+						}
+						.lt{
+							@include altvh(126,292,94);							
+							.icon{
+								@include alt;
+								background: url(../images/page3_s2_icon1.png) no-repeat;
+								background-size: contain;
+								background-position: center top;
+								z-index: 0;
+							}
+							.fbshare_btn{
+								@include altvh(120,44,0,190);
+								background: url(../images/page3_s2_fbshare_btn.png) no-repeat;
+								background-size: contain;
+								background-position: center;
+								cursor: pointer;
+								&:hover{opacity: 0.8;}
+							}
+						}
+						.rt{
+							@include artvh(200,292,57);
+							.icon{
+								@include alt;
+								background: url(../images/page3_s2_icon2.png) no-repeat;
+								background-size: 74% auto;
+								background-position: center top;
+								z-index: 0;
+							}
+							.linkbox{
+								@include altvh(200,140,0,140);
+								a{
+									@include r;
+									margin-bottom: 1.5vh;
+									text-align: center;
+									img{height:100%;width:auto;display: inline-block;}
+									&:hover{opacity: 0.8;}
+									&:nth-child(1){height:7.6vh;}
+									&:nth-child(2){height:4.6vh;}
+									&:nth-child(3){height:7vh;}
+								}
+							}
+						}
+					}
+					.btn1{
+						@include albvh(191,41,112,10);
+						.playbtn{
+							@include alt;							
+							display: none;
+							&:after{
+								content:"";
+								@include alt;
+								background: url(../images/page3_s2_play_btn.png) no-repeat;
+								background-size: contain;
+								background-position: center;
+							}
+							&:before{
+								content:"";
+								@include alt;
+								background: url(../images/page3_s2_play_btn_hover.png) no-repeat;
+								background-size: contain;
+								background-position: center;
+								z-index: 1;
+								opacity: 0;
+							}
+							&:hover{
+								&:before{opacity: 1;}
+								&:after{opacity: 0;}
+							}
+						}
+						.pdbtn{
+							@include alt;
+							display: none;
+							&:after{
+								content:"";
+								@include alt;
+								background: url(../images/page3_s2_pd_btn.png) no-repeat;
+								background-size: contain;
+								background-position: center;
+							}
+							&:before{
+								content:"";
+								@include alt;
+								background: url(../images/page3_s2_pd_btn_hover.png) no-repeat;
+								background-size: contain;
+								background-position: center;
+								z-index: 1;
+								opacity: 0;
+							}
+							&:hover{
+								&:before{opacity: 1;}
+								&:after{opacity: 0;}
+							}
+						}
+					}
+					.backbtn{
+						@include albvh(140,41,313,10);
+						&:after{
+							content:"";
+							@include alt;
+							background: url(../images/page3_s2_back_btn.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+						}
+						&:before{
+							content:"";
+							@include alt;
+							opacity: 0;
+							background: url(../images/page3_s2_back_btn_hover.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+						}
+						&:hover{
+							&:before{opacity: 1;}
+							&:after{opacity: 0;}
+						}
+					}
+					.bg{
+						@include altvh(630,340,10,64);
+						z-index: 0;						
+						span{
+							background-color: #e33024;
+							transition:1s;
+							transition-delay:0.3s;
+						}
+						.top{@include alt(0,1px);}
+						.bottom{@include arb(0,1px);}
+						.left{@include alb(1px,0);}
+						.right{@include art(1px,0);}
+						.corner{
+							@include alt;
+							.c{
+								transition:0.3s;
+								transition-delay:0s;
+								opacity: 0;
+								background: url(../images/page1_s3_arrow.png) no-repeat;
+								background-position: center;
+							}
+							.c1{
+								@include alt(17px,17px);								
+							}
+							.c2{
+								@include art(17px,17px);
+								@include transform(rotateZ(90deg));
+							}
+							.c3{
+								@include alb(17px,17px);
+								@include transform(rotateZ(-90deg));
+							}
+							.c4{
+								@include arb(17px,17px);
+								@include transform(rotateZ(180deg));
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	.page1{
 		@include alt;
@@ -237,6 +700,9 @@ $pagespeed:0.5s;
 			transition:$pagespeed;
 			&.scenes2{
 				@include transform(translate(0,-100%));
+			}
+			&.scenes3{
+				@include transform(translate(0,-200%));
 			}
 			.scenes1{
 				@include alt;
@@ -381,10 +847,11 @@ $pagespeed:0.5s;
 												z-index: 2;
 											}
 											.cover{
-												@include r(100%,100%);
+												@include r(0,100%);
 												@include border-radius(3px);
 												background-color: #e33024;
 												z-index: 0;
+												// transition:0.3s;
 											}
 										}
 										.num{
@@ -430,7 +897,7 @@ $pagespeed:0.5s;
 							background-size: contain;
 							background-position: center;
 							z-index: 0;
-							transition:0.3s;
+							transition:0s;
 							opacity: 1;
 						}
 						&:before{
@@ -440,12 +907,176 @@ $pagespeed:0.5s;
 							background-size: contain;
 							background-position: center;
 							z-index: 1;
-							transition:0.3s;
+							transition:0s;
 							opacity: 0;
 						}
 						&:hover{
 							&:before{opacity: 1;}
 							&:after{opacity: 0;}
+						}
+					}
+				}
+			}
+			.scenes3{
+				@include alt(100%,100%,0,200%);
+				overflow: hidden;
+				&.on{
+					.main{
+						.bg{
+							span{
+								transition-delay:0s;
+							}
+							.top{@include alt(100%,1px);}
+							.bottom{@include arb(100%,1px);}
+							.left{@include alb(1px,100%);}
+							.right{@include art(1px,100%);}
+							.corner{
+								.c{
+									transition-delay:1s;
+									opacity: 1;
+									background: url(../images/page1_s3_arrow.png) no-repeat;
+									background-position: center;
+								}
+								.c1{
+									@include alt(17px,17px,-9px,-11px);								
+								}
+								.c2{
+									@include art(17px,17px,-9px,-11px);
+									@include transform(rotateZ(90deg));
+								}
+								.c3{
+									@include alb(17px,17px,-9px,-11px);
+									@include transform(rotateZ(-90deg));
+								}
+								.c4{
+									@include arb(17px,17px,-9px,-11px);
+									@include transform(rotateZ(180deg));
+								}
+							}
+						}
+					}
+				}
+				.main{
+					@include amvh(650,470);
+					z-index: 1;
+					.title{
+						@include altvh(225,53,212);
+						background: url(../images/page1_s3_titile.png) no-repeat;
+						background-size: contain;
+						background-position: center;
+					}
+					.content{
+						@include altvh(630,300,10,64);
+						z-index: 9;
+						display: none;
+						.lt{
+							@include altvh(257,257,36,21.5);
+							.tree{
+								@include alt;
+								background: url(../images/page1_s2_ani.png) no-repeat;
+								background-size: contain;
+								background-position: center;
+							}
+						}
+						.rt{
+							@include artvh(260,270,50,15);
+							.w{
+								@include altvh(260,25);
+								@include font(3vh,4vh,#000000,bolder);
+							}
+							.score{
+								@include altvh(260,160,0,30);
+								@include font(32vh,26vh,#ca0f02,bolder,'Oswald');
+								letter-spacing: -2vh;
+								text-align: left;
+								&:after{
+									content:"%";
+									@include font(10vh,10vh,#ca0f02,bolder,'Oswald');
+									display: inline-block;
+									vertical-align: bottom;
+								}
+							}
+							.s_all{
+								@include alb(100%,auto);
+								.s{
+									@include r;
+									@include font(2vh,3vh,#000000);
+									display: none;
+								}
+							}
+						}
+					}
+					.des{
+						@include altvh(650,15,0,380);
+						@include font(1.8vh,2.5vh,#666666);
+						text-align: center;
+					}
+					.s3gobtn{
+						@include albvh(140,41,255,18);
+						a{
+							@include alt;
+							z-index: 5;
+						}
+						&:after{
+							content:"";
+							@include alt;
+							background: url(../images/page1_s3_gobtn.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							z-index: 0;
+							transition:0s;
+						}
+						&:before{
+							content:"";
+							@include alt;
+							background: url(../images/page1_s3_gobtn_hover.png) no-repeat;
+							background-size: contain;
+							background-position: center;
+							z-index: 1;
+							transition:0s;
+							opacity: 0;
+						}
+						&:hover{
+							&:after{opacity: 0;}
+							&:before{opacity: 1;}
+						}
+					}
+					.bg{
+						@include altvh(630,300,10,64);
+						z-index: 0;						
+						span{
+							background-color: #e33024;
+							transition:1s;
+							transition-delay:0.3s;
+						}
+						.top{@include alt(0,1px);}
+						.bottom{@include arb(0,1px);}
+						.left{@include alb(1px,0);}
+						.right{@include art(1px,0);}
+						.corner{
+							@include alt;
+							.c{
+								transition:0.3s;
+								transition-delay:0s;
+								opacity: 0;
+								background: url(../images/page1_s3_arrow.png) no-repeat;
+								background-position: center;
+							}
+							.c1{
+								@include alt(17px,17px);								
+							}
+							.c2{
+								@include art(17px,17px);
+								@include transform(rotateZ(90deg));
+							}
+							.c3{
+								@include alb(17px,17px);
+								@include transform(rotateZ(-90deg));
+							}
+							.c4{
+								@include arb(17px,17px);
+								@include transform(rotateZ(180deg));
+							}
 						}
 					}
 				}
