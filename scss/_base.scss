@@ -236,8 +236,11 @@ img{vertical-align:top;}
   color: $co;
   @content;
 }
+// @function getVH($aa) {
+//   @return ($aa / 600) * 100vh;
+// }
 @function getVH($aa) {
-  @return ($aa / 600) * 100vh;
+  @return $aa * 1px;
 }
 
 // @function defultfc($aa, $bb) {

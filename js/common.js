@@ -10,16 +10,39 @@
 	webData.pagespeed = 500;
     webData.page1scenes = 1;
     webData.page3scenes = 1;
+    webData.HasComplet = 0;
     $(".databoxin").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
     $(".page3 .scenes1 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
+    $(".page2 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});    
+
     //SCORE INIT
     webData.nowscore = 0;
     webData.nowscorepercent = 0;
     webData.prescore = 0;
     webData.dragscore = 0;
-    webData.page1hasplay = false;    
+    webData.page1hasplay = false;
+
+    //Canvas init
+    webData.treeBigFrame = 0;
+    webData.treeSmallFrame = 0;
+
+    canvasIinit();
+    //FB INIT
+    webData.sharetitle = '【搶救】我的牙齦急診室！';
+    webData.sharedes = '刷牙流血問題，隱藏健康大警訊。立即線上診斷，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！';
+    var FBAppId = '1706959846220744';
+    FB.init({
+      appId      : FBAppId,
+      channelUrl : webData.mainurl,
+      status     : true,
+      xfbml      : true,
+      cookie     : true
+    });
+
 
 	//AddListener
+    $('.fbshare_btn').click(function(){sharefb();});
+    $('.fb_share_btn').click(function(){sharefb();});
     $('.agreebox .checkbox').click(function(){if($(this).hasClass('on')){$(this).removeClass('on');}else{$(this).addClass('on');}});
     $('.p3s1gobtn').click(function(){if(!$(this).hasClass('on')) sendData();});
     $('.sure_btn').click(function(){p1s2sure();});
@@ -36,12 +59,88 @@
 	$(window).load(windowLoad);
 	function windowLoad(){
         windowInit();
-
 	}
     
 
 
     //Eevent
+    function sharefb(){
+        if(device.mobile()){
+            window.location.href='https://m.facebook.com/dialog/feed?app_id='+ FBAppId +'&caption=&name='+webData.sharetitle+'&description='+webData.sharedes+'&link='+ webData.mainurl +'&redirect_uri='+webData.mainurl;
+        }else{
+            FB.ui({             
+                method: 'feed',
+                name: webData.sharetitle,
+                caption: "",
+                description: webData.sharedes,
+                display:"popup",
+                link: webData.mainurl
+              }, function(response) {
+                if (response && !response.error_code) {
+                    // console.log('share ok');
+                } else {
+                    // console.log('share not ok');
+                }
+            });
+        }
+    }
+    function canvasIinit(){
+        webData.treecanvas = document.getElementById("tree");
+        images = images||{};
+        ss = ss||{};
+        var loader = new createjs.LoadQueue(false);
+        loader.addEventListener("fileload", handleFileLoad);
+        loader.addEventListener("complete", handleComplete);
+        loader.loadFile({src:"images/treeAni_atlas_.txt", type:"spritesheet", id:"treeAni_atlas_"}, true);
+        loader.loadManifest(lib.properties.manifest);
+    }
+    function handleFileLoad(evt) {
+        if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+    }
+    function handleComplete(evt) {
+        var queue = evt.target;
+        ss["treeAni_atlas_"] = queue.getResult("treeAni_atlas_");
+        exportRoot = new lib.treeAni();
+
+        webData.stage = new createjs.Stage(webData.treecanvas);
+        webData.stage.addChild(exportRoot);
+        webData.stage.update();
+
+        createjs.Ticker.setFPS(lib.properties.fps);
+        createjs.Ticker.addEventListener("tick", StageListenter);
+
+        //smallTree
+        webData.treesmall = document.getElementById("treeSmall"); 
+        webData.treesmallStage = new createjs.Stage(webData.treesmall);
+        webData.treesmallStagemovie = webData.treesmallStage.addChild(new lib.元件1_1());
+
+        //light        
+        webData.light = document.getElementById("light"); 
+        webData.lightStage = new createjs.Stage(webData.light);
+        webData.lightStagemovie = webData.lightStage.addChild(new lib.元件1複製());
+        webData.lightStagemovie.setTransform(105,0);
+
+        //gobtn        
+        webData.gobtn = document.getElementById("gobtn"); 
+        webData.gobtnStage = new createjs.Stage(webData.gobtn);
+        webData.gobtnStagemovie = webData.gobtnStage.addChild(new lib.元件2_1());
+        webData.gobtnStagemovie.setTransform(0,0);
+
+        webData.HasComplet += 1;
+        checkLoading();
+    }
+    function StageListenter(){
+        webData.stage.update();
+        if(webData.treesmallStage) webData.treesmallStage.update();
+        if(webData.lightStage) webData.lightStage.update();
+        if(webData.gobtnStage) webData.gobtnStage.update();
+
+        if(webData.nowscorepercent > webData.treeBigFrame) webData.treeBigFrame+=1;
+        else if(webData.nowscorepercent < webData.treeBigFrame) webData.treeBigFrame-=1;        
+        
+        exportRoot.instance_2.gotoAndStop(webData.treeBigFrame);
+        webData.treesmallStagemovie.gotoAndStop(webData.treeSmallFrame);
+    }   
     function p1s2sure(){
         $.address.value("/page1?scenes=3");
         $('.q1ans').removeClass('on');
@@ -148,6 +247,7 @@
     function changepage3Scenes(){
         var _tmp = '';        
         if(webData.page3scenes!=1) _tmp = ' scenes' + webData.page3scenes;
+        else{setTimeout(function(){changeCity();},1500);}
         $('.wrapperin .page3 .scenes_all').attr('class','scenes_all' + _tmp);
         $('.scenes_all .scenes').removeClass('on');
         $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
@@ -169,9 +269,13 @@
             webData.nowscore = 0;
             webData.nowscorepercent = 0;
             webData.prescore = 0;
-            webData.dragscore = 0;            
+            webData.dragscore = 0;
+            webData.treeBigFrame = 0;            
         }
-        if(webData.page1scenes==3) page1secenes3ani(true);
+        if(webData.page1scenes==3){
+            webData.treeSmallFrame = 0;
+            page1secenes3ani(true);
+        }
         else page1secenes3ani(false);
     }
     function page1secenes3ani(_t){
@@ -197,7 +301,8 @@
         var _score = $('.wrapperin .page1 .scenes_all .scenes3 .score');
         var _nownumber = _score.text();
         if(_nownumber < webData.nowscorepercent){
-            _nownumber=_nownumber*1 + 1;            
+            _nownumber=_nownumber*1 + 1;
+            webData.treeSmallFrame = _nownumber;
             webData.pg1S3timeout = setTimeout(function(){page1secenes3Scoreani();},33);
         }
         _score.html(_nownumber);
@@ -218,7 +323,23 @@
     		if(webData.wrapperTimeout) clearTimeout(webData.wrapperTimeout);
     		webData.wrapperTimeout = setTimeout(function(){webData.wrp.find('.wrapperin').removeClass('off');},webData.pagespeed);
     	}
+        if(webData.nowpage ==1 || webData.nowpage ==3) $('.wrapper_top').find('.page').removeClass('on');
         if(webData.nowpage==1) changepage1Scenes();
+        if(webData.nowpage==2){
+            $('.page2').find('.content').hide();
+            if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
+            webData.pg3timeout = setTimeout(function(){
+                $('.page2').find('.content').fadeIn();
+            },1300);
+        }
+        if(webData.nowpage==4){
+             $('.page4').find('.content').hide();
+            if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
+            webData.pg3timeout = setTimeout(function(){
+                $('.page4').find('.content').fadeIn();
+                webData.player.playVideo();
+            },1300);
+        }else{if(webData.player) webData.player.pauseVideo();}
         if(webData.nowpage==3){
             $('.footer .gobtn').fadeOut();
             changepage3Scenes();
@@ -242,7 +363,9 @@
         });
 
         //Start
-        setTimeout(function(){changeCity();},1500);
+        webData.HasComplet += 1;
+        checkLoading();
+        // setTimeout(function(){changeCity();},1500);
     }
     function changeCity(){
         console.log("webData.nowCity:"+webData.nowCity);
@@ -260,24 +383,36 @@
         webData.map = new google.maps.Map(document.getElementById('mapCanvas'),webData.mapOptions); 
         var beachMarker = new google.maps.Marker({position: new google.maps.LatLng(_shop.LAT, _shop.LNG),map: webData.map,icon: webData.mapimage});
         webData.map.setCenter(new google.maps.LatLng(_shop.LAT, _shop.LNG));
-        // google.maps.event.addListenerOnce(webData.map, 'idle', function(){
-        //     //loaded fully
-        //     console.log('zzzz');
-        //     webData.map.setCenter(new google.maps.LatLng(_shop.LAT, _shop.LNG));
-        // });
+    }
+    function createVideo(_id){
+        webData.player = new YT.Player('player', {
+          height: '100%',
+          width: '100%',
+          videoId: _id,
+          playerVars:{
+            'controls':1,
+            'autoplay':false,
+            'enablejsapi':'0',
+            'hd':'1',
+            'rel':'0',
+            'showinfo':'0',
+            'modestbranding':'1',
+            'cc_load_policy':'1',
+            'wmode':'transparent'      
+          }
+        });     
     }
     function windowInit(){
         var _random = Math.round(Math.random()*1000)+1;
         $('.user_code').parent().prepend('<img src="'+ webData.backendurl +'api_vcode.ashx?'+_random+'" class="code">');
+        createVideo('AoT4Q6NPjco');
 
         $.ajax({
             url: webData.backendurl + 'api_store.ashx',
             type: 'POST',
             dataType: 'json',
             success: function(data) {
-                webData.shopdata = data.DATA;
-                console.log(webData.shopdata);
-                showLoading(false);
+                webData.shopdata = data.DATA;                
                 if(data.RS=="OK"){
                     initMap();
                 }else console.log(data.RS);            
@@ -286,6 +421,10 @@
                 console.log("error:", xhr, textStatus, errorThrown);
             }
         });
+    }
+    function checkLoading(){
+        if(webData.HasComplet >= 2) showLoading(false);
+        else setTimeout(function(){checkLoading();},300);     
     }
     function addrChange(){
     	var value = $.address.value();
@@ -320,6 +459,10 @@
             case '/page4':
                 console.log('救救牙齦TVC');
                 webData.nowpage = 4;
+            break;
+            case '/page5':
+                console.log('牙齦健康自救法');
+                webData.nowpage = 1;
             break;
 		}
 		changePage();

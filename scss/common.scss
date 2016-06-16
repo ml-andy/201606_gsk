@@ -12,6 +12,9 @@ $pagespeed:0.5s;
 .loading{
 	@include flt;
 	z-index: 99999;
+	background: url(../images/page1_bg.jpg) no-repeat;
+	background-size: cover;
+	background-position: center;
 	background-color: rgba(255,255,255,0.75);
 	span{
 		@include am(200px,50px);
@@ -31,7 +34,15 @@ $pagespeed:0.5s;
 		@include artvh(170,430,11);
 		.menubtn{
 			@include altvh(170,31);
-			border-bottom:1px solid rgba(255,255,255,0.5);
+			@include border-radius(0);
+			border-bottom:1px solid rgba(255,255,255,0.5);			
+			border-left:0px solid #e33024;
+			border-right:0px solid #e33024;
+			&:hover{
+				span{background-color: #FFF;}
+				background-color: #e33024;
+				opacity: 0.8;
+			}
 			span{
 				left: getVH(17);
 				margin-top: getVH(1);
@@ -50,7 +61,11 @@ $pagespeed:0.5s;
 		cursor: pointer;
 		z-index: 999;
 		transition: 0.35s;
-		border-bottom:1px solid rgba(255,255,255,0);
+		@include border-radius(0 0 15px 15px);
+		box-sizing:border-box;
+		border-bottom:1px solid #e33024;
+		border-left:1px solid #e33024;
+		border-right:1px solid #e33024;
 		&:before{
 			content:"CLOSE";
 			@include alt;
@@ -73,7 +88,11 @@ $pagespeed:0.5s;
 			background-size: contain;
 			background-position: right center;
 		}
-		&.on {
+		&:hover{
+			span{background-color: #e33024;}
+			background-color: #fff;
+		}
+		&.on {			
 		  	.top {
 		    	@include transform(translateY(getVH(5)) translateX(0) rotate(45deg));
 		    	background: $color-active;
@@ -216,7 +235,147 @@ $pagespeed:0.5s;
 		opacity: 0;
 		transition:0s;
 		&.yes{transition:$pagespeed;}
-		&.on{opacity: 1;z-index: 1;}
+		&.on{
+			opacity: 1;
+			z-index: 1;
+			.main{
+				.bg{
+					span{
+						transition-delay:0s;
+					}
+					.top{@include alt(100%,1px);}
+					.bottom{@include arb(100%,1px);}
+					.left{@include alb(1px,100%);}
+					.right{@include art(1px,100%);}
+					.corner{
+						.c{
+							transition-delay:1s;
+							opacity: 1;
+							background: url(../images/page1_s3_arrow.png) no-repeat;
+							background-position: center;
+						}
+						.c1{
+							@include alt(17px,17px,-9px,-11px);								
+						}
+						.c2{
+							@include art(17px,17px,-9px,-11px);
+							@include transform(rotateZ(90deg));
+						}
+						.c3{
+							@include alb(17px,17px,-9px,-11px);
+							@include transform(rotateZ(-90deg));
+						}
+						.c4{
+							@include arb(17px,17px,-9px,-11px);
+							@include transform(rotateZ(180deg));
+						}
+					}
+				}
+			}
+		}
+		.main{
+			@include amvh(650,474);
+			z-index: 1;
+			overflow: hidden;
+			.title{
+				@include altvh(297,53,176);
+				background: url(../images/page2_title.png) no-repeat;
+				background-size: contain;
+				background-position: center;
+				z-index: 1;
+			}
+			.content{
+				@include altvh(630,325,10,64);
+				overflow: hidden;
+				box-sizing:border-box;
+				padding: 25px;				
+				z-index: 1;
+				.contentin{
+					@include r;
+					box-sizing:border-box;
+					padding-right: 40px;
+					.t{
+						@include r;
+						@include font(20px,20px,#ca0f02,bolder);
+						margin-bottom: 15px;
+					}
+					.w{
+						@include r;
+						@include font(13px,23px,#000000);
+						margin-bottom: 30px;
+						ul{
+							@include r;
+							li{
+								@include r;
+								@include font(13px,23px,#000000);
+								box-sizing:border-box;
+								padding-left: 25px;
+								margin-bottom: 10px;
+								&:before{
+									content:"";
+									@include alt(32px,23px);
+									@include font(13px,23px,#000000);
+									text-align: left;
+								}
+								&:nth-child(1){&:before{content:"1.";}}
+								&:nth-child(2){&:before{content:"2.";}}
+								&:nth-child(3){&:before{content:"3.";}}
+								&:nth-child(4){&:before{content:"4.";}}
+								&:nth-child(5){&:before{content:"5.";}}
+								&:nth-child(6){&:before{content:"6.";}}
+								&:nth-child(7){&:before{content:"7.";}}
+								&:nth-child(8){&:before{content:"8.";}}
+								&:nth-child(9){&:before{content:"9.";}}
+								&:nth-child(10){&:before{content:"10.";}}
+								&:nth-child(11){&:before{content:"11.";}}
+								&:nth-child(12){&:before{content:"12.";}}
+								&:nth-child(13){&:before{content:"13.";}}
+								&:nth-child(14){&:before{content:"14.";}}
+								&:nth-child(15){&:before{content:"15.";}}
+							}
+						}
+					}
+				}
+			}
+			.bg{
+				@include altvh(630,325,10,64);
+				z-index: 0;						
+				span{
+					background-color: #e33024;
+					transition:1s;
+					transition-delay:0.3s;
+				}
+				.top{@include alt(0,1px);}
+				.bottom{@include arb(0,1px);}
+				.left{@include alb(1px,0);}
+				.right{@include art(1px,0);}
+				.corner{
+					@include alt;
+					.c{
+						transition:0.3s;
+						transition-delay:0s;
+						opacity: 0;
+						background: url(../images/page1_s3_arrow.png) no-repeat;
+						background-position: center;
+					}
+					.c1{
+						@include alt(17px,17px);								
+					}
+					.c2{
+						@include art(17px,17px);
+						@include transform(rotateZ(90deg));
+					}
+					.c3{
+						@include alb(17px,17px);
+						@include transform(rotateZ(-90deg));
+					}
+					.c4{
+						@include arb(17px,17px);
+						@include transform(rotateZ(180deg));
+					}
+				}
+			}
+		}
 	}
 	.page4{
 		@include alt(100%,100%);
@@ -224,7 +383,102 @@ $pagespeed:0.5s;
 		opacity: 0;
 		transition:0s;
 		&.yes{transition:$pagespeed;}
-		&.on{opacity: 1;z-index: 1;}
+		&.on{
+			opacity: 1;
+			z-index: 1;
+			.main{
+				.bg{
+					span{
+						transition-delay:0s;
+					}
+					.top{@include alt(100%,1px);}
+					.bottom{@include arb(100%,1px);}
+					.left{@include alb(1px,100%);}
+					.right{@include art(1px,100%);}
+					.corner{
+						.c{
+							transition-delay:1s;
+							opacity: 1;
+							background: url(../images/page1_s3_arrow.png) no-repeat;
+							background-position: center;
+						}
+						.c1{
+							@include alt(17px,17px,-9px,-11px);								
+						}
+						.c2{
+							@include art(17px,17px,-9px,-11px);
+							@include transform(rotateZ(90deg));
+						}
+						.c3{
+							@include alb(17px,17px,-9px,-11px);
+							@include transform(rotateZ(-90deg));
+						}
+						.c4{
+							@include arb(17px,17px,-9px,-11px);
+							@include transform(rotateZ(180deg));
+						}
+					}
+				}
+			}
+		}
+		.main{
+			@include amvh(650,474);
+			z-index: 1;
+			overflow: hidden;
+			.title{
+				@include altvh(297,53,176);
+				background: url(../images/page4_title.png) no-repeat;
+				background-size: contain;
+				background-position: center;
+				z-index: 1;
+			}
+			.content{
+				@include altvh(630,325,10,64);
+				overflow: hidden;				
+				z-index: 1;
+				#player{
+					@include altvh(557,311,36,7);
+				}				
+			}
+			.bg{
+				@include altvh(630,325,10,64);
+				z-index: 0;						
+				span{
+					background-color: #e33024;
+					transition:1s;
+					transition-delay:0.3s;
+				}
+				.top{@include alt(0,1px);}
+				.bottom{@include arb(0,1px);}
+				.left{@include alb(1px,0);}
+				.right{@include art(1px,0);}
+				.corner{
+					@include alt;
+					.c{
+						transition:0.3s;
+						transition-delay:0s;
+						opacity: 0;
+						background: url(../images/page1_s3_arrow.png) no-repeat;
+						background-position: center;
+					}
+					.c1{
+						@include alt(17px,17px);								
+					}
+					.c2{
+						@include art(17px,17px);
+						@include transform(rotateZ(90deg));
+					}
+					.c3{
+						@include alb(17px,17px);
+						@include transform(rotateZ(-90deg));
+					}
+					.c4{
+						@include arb(17px,17px);
+						@include transform(rotateZ(180deg));
+					}
+				}
+			}
+		}
 	}	
 	.page3{
 		@include alt(100%,100%,100%);
@@ -290,102 +544,102 @@ $pagespeed:0.5s;
 						*{box-sizing:border-box;transition:0s;}
 						.w{
 							@include r;
-							@include font(2.5vh,3vh,#010101,bolder);
-							padding-right: 6.6vh;
-							margin-bottom: 4vh;
+							@include font(15px,18px,#010101,bolder);
+							padding-right: 40px;
+							margin-bottom: 25px;
 						}
 						.pd{
 							@include r;
-							margin-bottom: 2.5vh;
-							img{@include r;padding-right: 6.6vh;}
+							margin-bottom: 15px;
+							img{@include r;padding-right: 40px;}
 						}
 						.user_data{
 							@include r;
-							margin-bottom: 4vh;
-							padding-right: 6.6vh;
+							margin-bottom: 25px;
+							padding-right: 40px;
 							ul{
 								@include r;
 								li{
 									@include r;
-									margin-bottom: 2vh;
+									margin-bottom: 12px;
 									.data{
 										position: relative;
-										margin-right: 1.3vh;
+										margin-right: 7px;
 										display: inline-block;
 										vertical-align: top;
 										.lt{
-											@include font(2vh,4vh,#010101,bolder);
+											@include font(13px,24px,#010101,bolder);
 											display: inline-block;
 											vertical-align: top;
-											margin-right: 0.8vh;
+											margin-right: 5px;
 										}
 										.rt{
 											display: inline-block;
 											vertical-align: top;
 											input{
-												@include font(2vh,4vh,#010101,bolder);
-												height: 4vh;
+												@include font(13px,24px,#010101,bolder);
+												height: 24px;
 												border:1px solid #083171;
 												display: inline-block;
 												background-color: #fff;
-												padding: 0.5vh;
+												padding: 3px;
 											}
-											.user_name{width: 19.5vh;}
-											.user_phone{width:33.33vh;}
-											.user_mail{width:62.6vh;}											
-											.user_code{width: 15.3vh;}
+											.user_name{width: 117px;}
+											.user_phone{width:199px;}
+											.user_mail{width:376px;}											
+											.user_code{width: 92px;}
 										}
 									}
 									.mapdata{
 										@include r;
 										.lt{
-											@include r(16vh,100%);
-											@include font(2vh,4vh,#010101,bolder);
-											margin-right: 0.8vh;
+											@include r(96px,100%);
+											@include font(13px,24px,#010101,bolder);
+											margin-right: 5px;
 										}
 										.rt{
-											@include r(53vh,100%);
+											@include r(318px,100%);
 											select{
-												@include r(15vh,4vh);
-												@include font(2vh,4vh,#010101,bolder);
+												@include r(90px,24px);
+												@include font(13px,24px,#010101,bolder);
 												border:1px solid #083171;
 												background-color: #fff;
-												margin-right: 1.6vh;
-												margin-bottom: 1.6vh;
+												margin-right: 10px;
+												margin-bottom: 10px;
 											}
 											.shop_addr{
-												@include r(38.33vh,4vh);
-												@include font(2vh,3vh,#010101,bolder);
-												height: 4vh;
+												@include r(230px,24px);
+												@include font(13px,18px,#010101,bolder);
+												height: 24px;
 												border:1px solid #083171;
 												background-color: #fff;
-												padding: 0.5vh;
+												padding: 3px;
 											}
 											.lastnumber{
 												@include arb(auto,auto);
-												@include font(2vh,4vh,#ca0f02,bolder);
+												@include font(13px,24px,#ca0f02,bolder);
 											}
 										}										
 										.map{
-											@include r(100%,26vh);
-											margin-top: 1.6vh;
+											@include r(100%,156px);
+											margin-top: 10px;
 										}
 									}
 									img.code{
-										width: 11.8vh;
-										height: 3.6vh;
+										width: 70px;
+										height: 24px;
 										vertical-align: top;
 										display: inline-block;
-										margin-right: 1.6vh;
+										margin-right: 10px;
 									}
 									.agreebox{
 										@include r;
 										.checkbox{
-											width: 4vh;
-											height:4vh;
+											width: 24px;
+											height:24px;
 											vertical-align: top;
 											display: inline-block;
-											margin-right: 1.6vh;
+											margin-right: 10px;
 											background-color: #fff;
 											border:1px solid #083171;
 											cursor: pointer;
@@ -394,18 +648,18 @@ $pagespeed:0.5s;
 											}
 										}
 										a{
-											@include font(2vh,4vh,#010101,bolder);
+											@include font(13px,24px,#010101,bolder);
 											width: auto;
 											display: inline-block;
 										}
 									}
 									.sw{
 										@include r;
-										@include font(1.8vh,2.5vh,#666666);
+										@include font(11px,15px,#666666);
 										&:before{
 											content:"※";
 											display: inline-block;
-											margin-right: 1vh;											
+											margin-right: 5px;											
 										}
 									}
 								}
@@ -566,13 +820,13 @@ $pagespeed:0.5s;
 								@include altvh(200,140,0,140);
 								a{
 									@include r;
-									margin-bottom: 1.5vh;
+									margin-bottom: 10px;
 									text-align: center;
 									img{height:100%;width:auto;display: inline-block;}
 									&:hover{opacity: 0.8;}
-									&:nth-child(1){height:7.6vh;}
-									&:nth-child(2){height:4.6vh;}
-									&:nth-child(3){height:7vh;}
+									&:nth-child(1){height:45px;}
+									&:nth-child(2){height:27px;}
+									&:nth-child(3){height:42px;}
 								}
 							}
 						}
@@ -712,10 +966,7 @@ $pagespeed:0.5s;
 					z-index: 1;
 					img{width: 100%;}					
 					.light{
-						@include altvh(300,150,16);
-						background: url(../images/light.png) no-repeat;
-						background-size: cover;
-						background-position: center;
+						@include altvh(300,150,16);						
 					}
 					.title{
 						@include altvh(324,212,0,0,-162,-106);
@@ -882,9 +1133,12 @@ $pagespeed:0.5s;
 					}
 					.tree_ani{
 						@include artvh(380,380,0,50);
-						background: url(../images/page1_s2_ani.png) no-repeat;
-						background-size: contain;
-						background-position: right center;
+						// background: url(../images/page1_s2_ani.png) no-repeat;
+						// background-size: contain;
+						// background-position: right center;
+						canvas{
+							@include alt;
+						}
 					}
 					.sure_btn{
 						@include albvh(140,40,0,0,-70);
@@ -973,25 +1227,25 @@ $pagespeed:0.5s;
 							@include altvh(257,257,36,21.5);
 							.tree{
 								@include alt;
-								background: url(../images/page1_s2_ani.png) no-repeat;
-								background-size: contain;
-								background-position: center;
+								canvas{
+									@include alt;
+								}
 							}
 						}
 						.rt{
 							@include artvh(260,270,50,15);
 							.w{
 								@include altvh(260,25);
-								@include font(3vh,4vh,#000000,bolder);
+								@include font(18px,24px,#000000,bolder);
 							}
 							.score{
 								@include altvh(260,160,0,30);
-								@include font(32vh,26vh,#ca0f02,bolder,'Oswald');
-								letter-spacing: -2vh;
+								@include font(192px,160px,#ca0f02,bolder,'Oswald');
+								letter-spacing: -12px;
 								text-align: left;
 								&:after{
 									content:"%";
-									@include font(10vh,10vh,#ca0f02,bolder,'Oswald');
+									@include font(60px,60px,#ca0f02,bolder,'Oswald');
 									display: inline-block;
 									vertical-align: bottom;
 								}
@@ -1000,7 +1254,7 @@ $pagespeed:0.5s;
 								@include alb(100%,auto);
 								.s{
 									@include r;
-									@include font(2vh,3vh,#000000);
+									@include font(13px,18px,#000000);
 									display: none;
 								}
 							}
@@ -1008,7 +1262,7 @@ $pagespeed:0.5s;
 					}
 					.des{
 						@include altvh(650,15,0,380);
-						@include font(1.8vh,2.5vh,#666666);
+						@include font(11px,15px,#666666);
 						text-align: center;
 					}
 					.s3gobtn{
@@ -1082,7 +1336,6 @@ $pagespeed:0.5s;
 				}
 			}
 		}
-		
 	}	
 }
 .footer{
@@ -1090,13 +1343,31 @@ $pagespeed:0.5s;
 	z-index: 1;
 	overflow: hidden;
 	pointer-events:none;
+	.footer_w{
+		@include alb(auto,20px,10px,5px);
+		@include font(12px,20px,#f9f4f4);
+		z-index: 2;
+	}
 	.gobtn{
-		@include arbvh(192,108);
-		background: url(../images/footer_btn.png) no-repeat;
-		background-size: contain;
-		background-position: center;
+		@include arbvh(200,120,6,10);
+		&:before{
+			content:"";
+			@include alt(90%,100%,50%);
+			@include transform(translate(-50%));
+			background-image: url(../images/footer_btn.png);
+			background-repeat: no-repeat;
+			background-size: contain;
+			transition:0.3s;
+			background-position: center top;
+		}
 		z-index: 1;
 		pointer-events:auto;
+		&:hover{
+			&:before{width: 100%;}
+		}
+		canvas{
+			@include alb(155px,20px,22.5px);
+		}
 	}
 	.bg{
 		@include r;

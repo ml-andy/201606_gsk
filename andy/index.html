@@ -18,6 +18,12 @@
 <!---->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="http://code.createjs.com/easeljs-0.8.1.min.js"></script>
+<script src="http://code.createjs.com/tweenjs-0.6.1.min.js"></script>
+<script src="http://code.createjs.com/movieclip-0.8.1.min.js"></script>
+<script src="http://code.createjs.com/preloadjs-0.6.1.min.js"></script>
+<script type="text/javascript" src="//connect.facebook.net/zh_TW/all.js"></script>
 <script src="js/jquery.address.js"></script>
 <script src="js/device.min.js"></script>
 <!--css-->
@@ -25,8 +31,8 @@
 <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css"/>
 <link rel="stylesheet" href="css/common.css"/>
 <!--js-->
-<!-- <script type="text/javascript" src="//connect.facebook.net/zh_TW/all.js"></script> -->
 <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/treeAni.js"></script>
 <script src="js/ga.js"></script>
 <script src="js/common.js"></script>
 </head>
@@ -42,36 +48,101 @@
 	    </div>
 	    <div class="menubox">
 	    	<ul>
-	    		<li><a href="#" class="menua">牙齦急診室</a></li>
+	    		<li><a href="index.html#/page1" class="menua">牙齦急診室</a></li>
 	    		<li><a href="index.html#/page1?scenes=2" class="menua">牙齦緊急檢查</a></li>
-	    		<li><a href="#" class="menua">牙齦健康自救法</a></li>
+	    		<li><a href="index.html#/page5" class="menua">牙齦健康自救法</a></li>
 	    		<li>
 	    			<a href="javascript:;" class="menua buy">立即購買</a>
-	    			<a href="#" class="shopa" target="blank"><img src="images/shopa1.png"></a>
-	    			<a href="#" class="shopa" target="blank"><img src="images/shopa2.png"></a>
-	    			<a href="#" class="shopa" target="blank"><img src="images/shopa3.png"></a>
+	    			<a href="http://24h.pchome.com.tw/store/DAAL52" class="shopa" target="blank"><img src="images/shopa1.png"></a>
+	    			<a href="http://goo.gl/0lT3k9" class="shopa" target="blank"><img src="images/shopa2.png"></a>
+	    			<a href="https://goo.gl/ikavnK" class="shopa" target="blank"><img src="images/shopa3.png"></a>
 	    		</li>
 	    		<li><a href="index.html#/page2" class="menua">牙齦求診須知</a></li>
 	    		<li><a href="index.html#/page4" class="menua">救救牙齦tvc</a></li>
-	    		<li><a href="#" class="menua" target="blank">完整了解</a></li>
+	    		<li><a href="http://www.parodontax.com.tw/products/daily-toothpaste/" class="menua" target="blank">完整了解</a></li>
 	    	</ul>
 	    </div>
 	</div>
 	<div class="wrapper">
 		<div class="wrapper_top">
-			<div class="page4 page">
-				tvc
+			<div class="page4 page pagectrl">
+				<div class="main">
+					<div class="title"></div>
+					<div class="content">
+						<div id="player"></div>
+					</div>
+					<div class="bg">
+						<span class="top"></span>
+						<span class="bottom"></span>
+						<span class="left"></span>
+						<span class="right"></span>
+						<div class="corner">
+							<div class="c c1"></div>
+							<div class="c c2"></div>
+							<div class="c c3"></div>
+							<div class="c c4"></div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="page2 page">
-				about
+			<div class="page2 page pagectrl">
+				<div class="main">
+					<div class="title"></div>
+					<div class="content">
+						<div class="contentin">
+							<div class="t">活動期間</div>
+							<div class="w">2016/XX/XX ~ 2016/XX/XX  XX:XX止</div>
+							<div class="t">活動說明</div>
+							<div class="w">
+								活動期間於本牙周適活動網站填妥資料並確認送出，即可憑索取簡訊至選定屈臣氏門市，免費兌換「牙周適牙齦護理牙膏潔淨酷涼25g一條」。<br />贈品數量有限，送完為止，每支手機號碼限兌乙次，牙周適保有贈品更換之權利。
+							</div>
+							<div class="t">活動獎品</div>
+							<div class="w">
+								牙周適牙齦護理牙膏潔淨酷涼25g一條<br />(於活動期間2016/XX/XX ~ 2016/XX/XX 限量兩萬條，送完為止。)
+							</div>
+							<div class="t">贈獎辦法</div>
+							<div class="w">主辦單位為英商葛蘭素史克消費保健用品股份有限公司台灣分公司，合作單位為屈臣氏門市。受獎者於活動期間請直接前往於本活動網站選定之屈臣氏門市，憑索取簡訊兌換贈品，主辦單位不另行公告受獎者名單。</div>
+							<div class="t">注意事項</div>
+							<div class="w">
+								<ul>
+									<li>本活動主辦單位：英商葛蘭素史克消費保健用品股份有限公司台灣分公司；贈品由主辦單位提供。</li>
+									<li>主辦單位及協辦單位保留以上活動內容修改之權利，並有權決定取消、終止、修改活動細項或暫停活動…等權利。</li>
+									<li>若因遇不可抗力之因素，活動將有提前截止或取消的可能。</li>
+									<li>活動參加者不得進行攻擊網站活動及惡意註冊等違反公平原則之行為，一經發現，則相關參加記錄均視為無效並取消贈品領取資格。</li>
+									<li>個人資料僅供活動聯絡使用及贈品兌換。</li>
+									<li>參與本活動者寄出資料參加本活動之同時，即同意受本「活動辦法」之規範，如有違反本「活動辦法」之情事，主辦單位得取消其中獎資格，並對於任何破壞本活動之行為保留法律追訴權。</li>
+									<li>參與本活動者保證所有填寫、提出之資料均為真實且正確，如有不實或不正確之情事，將被取消中獎資格，且如有致生損害於主辦單位或其他任何第三人，應負一切民刑事責任。主辦單位對於任何不實或不正確之資料不負任何法律責任。</li>
+									<li>如因中獎人之個人基本資料不實或填寫不正確、不完整、提供之領獎文件不完整或逾期提供而導致無法通知或兌換獎項者，視同中獎人自願放棄兌獎資格，獎項將不另行補發。</li>
+									<li>獎品在郵寄或運送過程中，所造成的毀壞、遲遞、錯遞或遺失，及所有獎品送出後之使用與維修，主辦單位恕不負責。</li>
+									<li>活動如發生任何爭議，概以主辦單位之決定為準。</li>
+									<li>其他未盡事宜，悉依主辦單位相關規定。</li>
+								</ul>
+							</div>
+						</div>						
+					</div>
+					<div class="bg">
+						<span class="top"></span>
+						<span class="bottom"></span>
+						<span class="left"></span>
+						<span class="right"></span>
+						<div class="corner">
+							<div class="c c1"></div>
+							<div class="c c2"></div>
+							<div class="c c3"></div>
+							<div class="c c4"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="wrapperin">			
-			<div class="page1">
+			<div class="page1 pagectrl">
 				<div class="scenes_all">
 					<div class="scenes scenes1">
 						<div class="main">
-							<div class="light"></div>
+							<div class="light">
+								<canvas id="light" width="300" height="150"></canvas>
+							</div>
 							<div class="title"></div>
 							<div class="start_btn"></div>
 						</div>
@@ -133,7 +204,9 @@
 									</ul>
 								</div>
 							</div>
-							<div class="tree_ani"></div>
+							<div class="tree_ani">
+								<canvas id="tree" width="380" height="378"></canvas>
+							</div>
 							<div class="sure_btn"></div>
 						</div>
 					</div>
@@ -142,7 +215,9 @@
 							<div class="title"></div>
 							<div class="content">
 								<div class="lt">
-									<div class="tree"></div>
+									<div class="tree">
+										<canvas id="treeSmall" width="380" height="378"></canvas>
+									</div>
 								</div>
 								<div class="rt">
 									<div class="w">牙齦危險指數</div>
@@ -178,7 +253,7 @@
 					</div>
 				</div>				
 			</div>
-			<div class="page3">
+			<div class="page3 pagectrl">
 				<div class="scenes_all">
 					<div class="scenes scenes1">
 						<div class="main">
@@ -266,9 +341,9 @@
 								<div class="rt">
 									<div class="icon"></div>
 									<div class="linkbox">
-										<a href="#" target="blank"><img src="images/page3_s2_link1.png"></a>
-										<a href="#" target="blank"><img src="images/page3_s2_link2.png"></a>
-										<a href="#" target="blank"><img src="images/page3_s2_link3.png"></a>
+										<a href="http://24h.pchome.com.tw/store/DAAL52" target="blank"><img src="images/page3_s2_link1.png"></a>
+										<a href="http://goo.gl/0lT3k9" target="blank"><img src="images/page3_s2_link2.png"></a>
+										<a href="https://goo.gl/ikavnK" target="blank"><img src="images/page3_s2_link3.png"></a>
 									</div>
 								</div>
 							</div>
@@ -296,7 +371,8 @@
 		</div>
 	</div>
 	<div class="footer">
-		<a href="index.html#/page3" class="gobtn"></a>	
+		<div class="footer_w">*如有牙齦問題 請洽詢牙醫師</div>
+		<a href="index.html#/page3" class="gobtn"><canvas id="gobtn" width="155" height="20"></canvas></a>	
 		<div class="bg"><img src="images/footer.png"></div>	
 	</div>
 </body>
