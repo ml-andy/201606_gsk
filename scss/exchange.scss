@@ -1,0 +1,228 @@
+@import "base.scss";
+.loading{
+	@include flt;
+	z-index: 99999;	
+	background-color: rgba(255,255,255,0.75);
+	span{
+		@include am(200px,50px);
+		@include font(15px,50px,#e33024);
+		text-align: center;
+		letter-spacing: 1px;
+	}
+}
+body,html{
+	height: 100%;
+}
+.pop{
+	@include flt;
+	z-index: 99999;
+	display: none;
+	.main{
+		@include am(524px,334px);
+		background: url(../images/m_exchange_icon.png) no-repeat;
+		background-position: center 30px;
+		background-color: #fff;
+		box-sizing:border-box;
+		border:1px solid #e33024;
+		z-index: 9;
+		.w{
+			@include r;
+			@include font(40px,40px,#010101,bolder);
+			letter-spacing: 2px;
+			margin-top: 140px;
+			text-align: center;
+		}
+		.yesbtn{
+			@include alb(191px,93px,54px,25px);
+			background: url(../images/m_exchange_sure_btn.png) no-repeat;
+			background-position: center 0;
+			z-index: 9;
+		}
+		.nobtn{
+			@include arb(191px,93px,54px,25px);
+			background: url(../images/m_exchange_sure_btn.png) no-repeat;
+			background-position: center -93px;
+			z-index: 9;
+		}
+	}
+	.cover{
+		@include alt;
+		z-index: 0;
+		background-color:rgba(0,0,0,0.9);
+	}
+}
+.wrapper_exchange{
+	@include r;
+	background: url(../images/m_exchange_footer.png) no-repeat;
+	background-size: 100% auto;
+	background-position: center bottom;
+	padding-bottom: 66px;
+	box-sizing:border-box;
+	min-height: 100%;
+	.wrapper_exchangein{
+		position:relative;
+		width: 486px;
+		margin: auto;
+	}
+	.logo{
+		@include alt(180px,71px);
+		background: url(../images/m_logo.png) no-repeat;
+		background-position: center;
+	}
+	.title{
+		@include r(100%,52px);
+		background: url(../images/m_exchange_title.png) no-repeat;
+		background-position: center;
+		margin-bottom: 30px;
+		margin-top: 80px;
+	}
+	.w{
+		@include r;
+		@include font(24px,35px,#040404,bolder);
+		text-align: left;
+		margin-bottom: 40px;
+	}
+	.content{
+		@include r;
+		box-sizing:border-box;
+		padding: 25px;
+		margin-bottom: 30px;
+		&.on{
+			.bg{
+				span{
+					transition-delay:0s;
+				}
+				.top{@include alt(100%,1px);}
+				.bottom{@include arb(100%,1px);}
+				.left{@include alb(1px,100%);}
+				.right{@include art(1px,100%);}
+				.corner{
+					.c{
+						transition-delay:1s;
+						opacity: 1;
+						background: url(../images/page1_s3_arrow.png) no-repeat;
+						background-position: center;
+					}
+					.c1{
+						@include alt(17px,17px,-9px,-11px);								
+					}
+					.c2{
+						@include art(17px,17px,-9px,-11px);
+						@include transform(rotateZ(90deg));
+					}
+					.c3{
+						@include alb(17px,17px,-9px,-11px);
+						@include transform(rotateZ(-90deg));
+					}
+					.c4{
+						@include arb(17px,17px,-9px,-11px);
+						@include transform(rotateZ(180deg));
+					}
+				}
+			}
+		}
+		ul{
+			@include r;
+			margin-bottom: 10px;
+			z-index: 5;
+			li{
+				@include r;
+				margin-bottom: 15px;
+				.lt{
+					@include alt(80px);
+					@include font(26px,35px,#ca0f02,bolder);
+					z-index: 9;
+				}
+				.rt{
+					@include r;
+					@include font(26px,35px,#ca0f02,bolder);
+					box-sizing:border-box;
+					padding-left: 80px;					
+				}
+			}
+		}
+		.pd{
+			@include r;
+			img{width: 100%;}
+		}
+		.bg{
+			@include alt;
+			z-index: 0;						
+			span{
+				background-color: #e33024;
+				transition:1s;
+				transition-delay:0.3s;
+			}
+			.top{@include alt(0,1px);}
+			.bottom{@include arb(0,1px);}
+			.left{@include alb(1px,0);}
+			.right{@include art(1px,0);}
+			.corner{
+				@include alt;
+				.c{
+					transition:0.3s;
+					transition-delay:0s;
+					opacity: 0;
+					background: url(../images/page1_s3_arrow.png) no-repeat;
+					background-position: center;
+				}
+				.c1{
+					@include alt(17px,17px);								
+				}
+				.c2{
+					@include art(17px,17px);
+					@include transform(rotateZ(90deg));
+				}
+				.c3{
+					@include alb(17px,17px);
+					@include transform(rotateZ(-90deg));
+				}
+				.c4{
+					@include arb(17px,17px);
+					@include transform(rotateZ(180deg));
+				}
+			}
+		}
+	}
+	.btn{
+		@include r;
+		margin-bottom: 30px;
+		text-align: center;
+		&.haschange{
+			a{
+				background-image: url(../images/m_exchange_gobtn_2.png);
+			}
+		}
+		&.nochange{
+			a{
+				background-image: url(../images/m_exchange_gobtn.png);
+			}	
+		}
+		a{
+			width: 317px;
+			height: 93px;
+			display: inline-block;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+	}
+	.sw_all{
+		@include r;
+		.sw{
+			@include r;
+			@include font(22px,35px,#000000);
+			margin-bottom: 10px;
+			box-sizing:border-box;
+			padding-left: 25px;
+			span{
+				color:#ca0f02;
+			}
+			&:before{
+				content:"※";
+				@include alt(25px);
+				@include font(22px,35px,#000000);
+				z-index: 1;
+			}
+		}
+	}
+}

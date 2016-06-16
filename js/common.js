@@ -11,6 +11,9 @@
     webData.page1scenes = 1;
     webData.page3scenes = 1;
     webData.HasComplet = 0;
+    if(device.mobile()) webData.device="mobile";
+    else webData.device="pc";
+    
     $(".databoxin").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
     $(".page3 .scenes1 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
     $(".page2 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});    
@@ -41,6 +44,7 @@
 
 
 	//AddListener
+    // $('.goprivacybtn').click(function(){$.address.value("");});
     $('.fbshare_btn').click(function(){sharefb();});
     $('.fb_share_btn').click(function(){sharefb();});
     $('.agreebox .checkbox').click(function(){if($(this).hasClass('on')){$(this).removeClass('on');}else{$(this).addClass('on');}});
@@ -65,9 +69,7 @@
 
     //Eevent
     function sharefb(){
-        if(device.mobile()){
-            window.location.href='https://m.facebook.com/dialog/feed?app_id='+ FBAppId +'&caption=&name='+webData.sharetitle+'&description='+webData.sharedes+'&link='+ webData.mainurl +'&redirect_uri='+webData.mainurl;
-        }else{
+        if(!device.mobile()){
             FB.ui({             
                 method: 'feed',
                 name: webData.sharetitle,
@@ -83,6 +85,27 @@
                 }
             });
         }
+        $.ajax({
+            url: webData.backendurl + 'api_share.ashx',
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                device:webData.device
+            },
+            success: function(data) {
+                console.log(data);
+                if(data.RS=="OK"){
+
+                }else console.log(data.RS);
+                if(device.mobile()) sharefb_mobile();
+            },error: function(xhr, textStatus, errorThrown) {
+                if(device.mobile()) sharefb_mobile();
+                console.log("error:", xhr, textStatus, errorThrown);
+            }
+        });        
+    }
+    function sharefb_mobile(){
+        window.location.href='https://m.facebook.com/dialog/feed?app_id='+ FBAppId +'&caption=&name='+webData.sharetitle+'&description='+webData.sharedes+'&link='+ webData.mainurl +'&redirect_uri='+webData.mainurl;
     }
     function canvasIinit(){
         webData.treecanvas = document.getElementById("tree");
@@ -142,11 +165,66 @@
         webData.treesmallStagemovie.gotoAndStop(webData.treeSmallFrame);
     }   
     function p1s2sure(){
+        //check record
+        var _qes = [];
+        for(var i=0; i<$('.databox li').length; i++){
+            var _txt ='';
+            if(i!=1){
+                for(var j=0; j<$('.databox li').eq(i).find('.q1ans.on').length; j++){
+                    var _tmp = '';
+                    if(j!=0) _tmp = ',';
+                    _txt = _txt + _tmp + $('.databox li').eq(i).find('.q1ans.on').eq(j).parent().text();
+                }                    
+            }else{
+                if(webData.dragscore<=5) _txt = Math.round(webData.dragscore / 5 * 7);
+                else _txt = 7 + Math.round((webData.dragscore - 5) / 15 * 7);
+            }
+            _qes.push(_txt);                
+        }
+        var _yes = true;
+        for(var i=0; i<_qes.length; i++){
+            if(i!=1){
+                if(_qes[i] == ''){
+                    var _num = i*1 +1;
+                    _yes = false;
+                    alert('別忘記填寫第' + _num + '題唷!');
+                    break;
+                }
+            }            
+        }
+        if(!_yes) return;    
+        $.ajax({
+            url: webData.backendurl + 'api_game.ashx',
+            type: 'POST',
+            dataType: 'json',
+            data:{
+                Q1:_qes[0],
+                Q2:_qes[1],
+                Q3:_qes[2],
+                Q4:_qes[3],
+                Q5:_qes[4],
+                device:webData.device
+            },
+            success: function(data) {                
+                if(data.RS=="OK"){
+                    // console.log(data);
+                }else console.log(data.RS);            
+            },error: function(xhr, textStatus, errorThrown) {                    
+                console.log("error:", xhr, textStatus, errorThrown);
+            }
+        });
         $.address.value("/page1?scenes=3");
         $('.q1ans').removeClass('on');
         $('.databox .bar .light').attr('style','');
         $('.databox .bar .cover').attr('style','');
         $('.databoxin').mCustomScrollbar('scrollTo',0);
+    }
+    function resetUserdata(){
+        var _user_data = $('.user_data');
+        _user_data.find('.user_phone').val('');
+        _user_data.find('.user_mail').val('');
+        _user_data.find('.user_name').val('');
+        _user_data.find('.user_code').val('');
     }
     function sendData(){
         $('.p3s1gobtn').addClass('on');
@@ -156,7 +234,8 @@
             email:_user_data.find('.user_mail').val(),
             name:_user_data.find('.user_name').val(),
             storeid:webData.shopdata[webData.nowCity].STORES[webData.nowArea].ID,
-            ccc:_user_data.find('.user_code').val()
+            ccc:_user_data.find('.user_code').val(),
+            device:webData.device
         }
         if(!webData.senddata.mob || !webData.senddata.email || !webData.senddata.name || !webData.senddata.ccc || !$('.agreebox .checkbox').hasClass('on')){
             if(!$('.agreebox .checkbox').hasClass('on')) alert("請同意個資條款");
@@ -164,23 +243,27 @@
             $('.p3s1gobtn').removeClass('on');
             return;
         }
+        showLoading(true);
         $.ajax({
             url: webData.backendurl + 'api_save.ashx',
             type: 'POST',
             dataType: 'json',
             data:webData.senddata,
             success: function(data) {
+                resetUserdata();
                 if(data.RS=="OK"){
                     webData.page3scenes=2;
                     changepage3Scenes();
                 }else alert(data.RS);
+                showLoading(false);
                 $('.p3s1gobtn').removeClass('on');
             },error: function(xhr, textStatus, errorThrown) {
                 $('.p3s1gobtn').removeClass('on');
+                showLoading(false);
                 console.log("error:", xhr, textStatus, errorThrown);
             }
         });
-    }
+    }    
     function databoxBar(){
         var bar = $(this),
             drag = $(this).find('.light'),
@@ -202,7 +285,6 @@
             _width50 = _width / 2;
             if(lft>_width){
                 bar.unbind('mousemove', dragmove);
-                console.log(_width);
                 return
             }
             else if(lft<0){
@@ -225,7 +307,7 @@
         //drag
         webData.nowscore = webData.nowscore + webData.dragscore;
         webData.nowscorepercent = Math.round(webData.nowscore / 85  * 100) - 1;
-        console.log("webData.dragscore:" + webData.dragscore + "/" + "webData.nowscore:"+webData.nowscore + "/" + "webData.nowscorepercent:" +webData.nowscorepercent);
+        // console.log("webData.dragscore:" + webData.dragscore + "/" + "webData.nowscore:"+webData.nowscore + "/" + "webData.nowscorepercent:" +webData.nowscorepercent);
         webData.prescore = webData.nowscore;
     }
     function countScore(_o){
@@ -298,7 +380,7 @@
                 _scenes3.find('.content').fadeIn(300,function(){
                     page1secenes3Scoreani();
                 });
-            },1300);
+            },1300);            
         }else{
             _scenes3.find('.content').fadeOut();
         }        
@@ -324,7 +406,10 @@
             $('.page2').find('.content').hide();
             if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
             webData.pg3timeout = setTimeout(function(){
-                $('.page2').find('.content').fadeIn();
+                $('.page2').find('.content').fadeIn(300,function(){
+                    if(webData.privacy) $('.page2 .content').mCustomScrollbar('scrollTo',$('.page2 .content .t_big'));
+                    else $('.page2 .content').mCustomScrollbar('scrollTo',0);
+                });
             },1300);
         }
         if(webData.nowpage==4){
@@ -360,20 +445,16 @@
         //Start
         webData.HasComplet += 1;
         checkLoading();
-        // setTimeout(function(){changeCity();},1500);
     }
     function changeCity(){
-        console.log("webData.nowCity:"+webData.nowCity);
         webData.nowArea = 0;
         $('.mapdata .area').html('');
         for(i in webData.shopdata[webData.nowCity].STORES) $('.mapdata .area').append('<option>'+ webData.shopdata[webData.nowCity].STORES[i].STORE +'</option>');
         changeArea();
     }
     function changeArea(){
-        console.log("webData.nowArea:"+webData.nowArea);
         $('.shop_addr').html(webData.shopdata[webData.nowCity].STORES[webData.nowArea].ADDRESS);
         var _shop = webData.shopdata[webData.nowCity].STORES[webData.nowArea];
-        console.log("_shop.LAT:"+_shop.LAT+"/"+"_shop.LNG:"+_shop.LNG);
         webData.mapOptions = {zoom: 18,center: new google.maps.LatLng(_shop.LAT, _shop.LNG)}
         webData.map = new google.maps.Map(document.getElementById('mapCanvas'),webData.mapOptions); 
         var beachMarker = new google.maps.Marker({position: new google.maps.LatLng(_shop.LAT, _shop.LNG),map: webData.map,icon: webData.mapimage});
@@ -428,41 +509,50 @@
 				window.location.href = "index.html#/page1";
 			break;
 			case '/page1':
-				console.log('牙齦急診室');
+				// console.log('牙齦急診室');
 				webData.nowpage = 1;
                 webData.page1scenes = 1;
 			break;
             case '/page1?scenes=2':
-                console.log('牙齦緊急檢查');
+                // console.log('牙齦緊急檢查');
                 webData.nowpage = 1;
                 webData.page1scenes = 2;
             break;
             case '/page1?scenes=3':
-                console.log('診斷結果');
+                // console.log('診斷結果');
                 webData.nowpage = 1;
                 webData.page1scenes = 3;
             break;
 			case '/page2':
-				console.log('牙齦求診須知');
+				// console.log('牙齦求診須知');
 				webData.nowpage = 2;
+                webData.privacy = false;
 			break;
+            case '/page2?scenes=2':
+                // console.log('個人資料同意書');
+                webData.nowpage = 2;
+                webData.privacy = true;
+            break;            
 			case '/page3':
-				console.log('立即索取');
+				// console.log('立即索取');
 				webData.nowpage = 3;
                 webData.page3scenes = 1;
 			break;
             case '/page3?andy':
-                console.log('索取結果');
+                // console.log('索取結果');
                 webData.nowpage = 3;
                 webData.page3scenes = 2;
             break;
             case '/page4':
-                console.log('救救牙齦TVC');
+                // console.log('救救牙齦TVC');
                 webData.nowpage = 4;
             break;
             case '/page5':
-                console.log('牙齦健康自救法');
+                // console.log('牙齦健康自救法');
                 webData.nowpage = 5;
+            break;
+            default:
+                window.location.href = "index.html#/page1";
             break;
 		}
 		changePage();

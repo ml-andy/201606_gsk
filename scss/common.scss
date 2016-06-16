@@ -299,6 +299,12 @@ $pagespeed:0.5s;
 						@include font(20px,20px,#ca0f02,bolder);
 						margin-bottom: 15px;
 					}
+					.t_big{
+						@include r;
+						@include font(24px,24px,#ca0f02,bolder);
+						margin-bottom: 15px;
+						margin-top: 15px;
+					}
 					.w{
 						@include r;
 						@include font(13px,23px,#000000);
@@ -722,6 +728,7 @@ $pagespeed:0.5s;
 											@include font(13px,24px,#010101,bolder);
 											width: auto;
 											display: inline-block;
+											&:hover{opacity: 0.8;}
 										}
 									}
 									.sw{
@@ -1416,7 +1423,6 @@ $pagespeed:0.5s;
 .footer{
 	@include alb(100%,auto);
 	z-index: 1;
-	overflow: hidden;
 	pointer-events:none;
 	.footer_w{
 		@include alb(auto,20px,10px,5px);
