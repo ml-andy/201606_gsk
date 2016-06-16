@@ -198,8 +198,11 @@
         });
         function dragmove(e){
             var lft = Math.floor(e.pageX-bar.offset().left - (drag.width() / 2));
+            _width = $('.databox .bar').width()-10;
+            _width50 = _width / 2;
             if(lft>_width){
                 bar.unbind('mousemove', dragmove);
+                console.log(_width);
                 return
             }
             else if(lft<0){
@@ -249,8 +252,10 @@
         if(webData.page3scenes!=1) _tmp = ' scenes' + webData.page3scenes;
         else{setTimeout(function(){changeCity();},1500);}
         $('.wrapperin .page3 .scenes_all').attr('class','scenes_all' + _tmp);
-        $('.scenes_all .scenes').removeClass('on');
-        $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
+        $('.wrapperin .page3 .scenes_all .scenes').stop().fadeOut().eq(webData.page3scenes - 1).stop().fadeIn(300,function(){
+            $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
+        });
+        // $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
         $('.wrapperin .page3 .scenes_all .scenes .content').hide();
         if(webData.page1hasplay) $('.wrapperin .page3 .scenes_all .scenes2 .btn1 a').hide().eq(1).show();
         else $('.wrapperin .page3 .scenes_all .scenes2 .btn1 a').hide().eq(0).show();
@@ -263,8 +268,9 @@
         var _tmp = '';        
         if(webData.page1scenes!=1) _tmp = ' scenes' + webData.page1scenes;
         $('.wrapperin .page1 .scenes_all').attr('class','scenes_all' + _tmp);
-        $('.scenes_all .scenes').removeClass('on');
-        $('.wrapperin .page1 .scenes_all .scenes').eq(webData.page1scenes-1).addClass('on');
+        $('.wrapperin .page1 .scenes_all .scenes').stop().fadeOut().eq(webData.page1scenes - 1).stop().fadeIn(300,function(){
+            $('.wrapperin .page1 .scenes_all .scenes').eq(webData.page1scenes-1).addClass('on');
+        });        
         if(webData.page1scenes==2){
             webData.nowscore = 0;
             webData.nowscorepercent = 0;
@@ -307,23 +313,12 @@
         }
         _score.html(_nownumber);
     }
-    function changePage(){
-    	if(webData.prepage ==2 || webData.prepage ==4 || webData.nowpage ==2 || webData.nowpage ==4){
-    		if(webData.nowpage ==2 || webData.nowpage ==4){
-    			if(webData.prepage==1 || webData.prepage==3) webData.wrp.find('.wrapperin').attr('class','wrapperin page' + webData.prepage);
-    			$('.wrapper_top').find('.page').removeClass('on');
-    			if(webData.prepage ==2 || webData.prepage ==4) $('.wrapper_top').find('.page').addClass('yes');
-    			$('.wrapper_top').find('.page' + webData.nowpage).addClass('on');
-    		}
-    		else{
-    			webData.wrp.find('.wrapperin').attr('class','wrapperin');
-    			$('.wrapper_top').find('.page').removeClass('yes');
-    		}
-    		webData.wrp.find('.wrapperin').addClass('off');
-    		if(webData.wrapperTimeout) clearTimeout(webData.wrapperTimeout);
-    		webData.wrapperTimeout = setTimeout(function(){webData.wrp.find('.wrapperin').removeClass('off');},webData.pagespeed);
-    	}
-        if(webData.nowpage ==1 || webData.nowpage ==3) $('.wrapper_top').find('.page').removeClass('on');
+    function changePage(){    	
+        $('.scenes_all .scenes').removeClass('on');
+        $('.pagectrl').removeClass('on').stop().fadeOut();
+        $('.page' + webData.nowpage).stop().fadeIn(300,function(){
+            $('.page' + webData.nowpage).addClass('on');
+        });
         if(webData.nowpage==1) changepage1Scenes();
         if(webData.nowpage==2){
             $('.page2').find('.content').hide();
@@ -456,13 +451,18 @@
 				webData.nowpage = 3;
                 webData.page3scenes = 1;
 			break;
+            case '/page3?andy':
+                console.log('索取結果');
+                webData.nowpage = 3;
+                webData.page3scenes = 2;
+            break;
             case '/page4':
                 console.log('救救牙齦TVC');
                 webData.nowpage = 4;
             break;
             case '/page5':
                 console.log('牙齦健康自救法');
-                webData.nowpage = 1;
+                webData.nowpage = 5;
             break;
 		}
 		changePage();

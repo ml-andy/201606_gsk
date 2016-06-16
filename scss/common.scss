@@ -195,48 +195,48 @@ $pagespeed:0.5s;
 .wrapper{
 	@include alt;
 	z-index: 0;	
-	transition:$pagespeed;	
+	// transition:$pagespeed;
 	.wrapperin{
 		@include alt;
 		z-index: 0;		
 		transition:$pagespeed;	
-		&.page1{@include transform(translate(0,0));}
-		&.page3{@include transform(translate(-200%,0));}
+		// &.page1{@include transform(translate(0,0));}
+		// &.page3{@include transform(translate(-200%,0));}
 	}
 	.wrapper_top{
-		@include alb(100%,100%,0,100%);
+		@include alb(100%,100%);
 	}
 	&.page1{
 		.wrapperin{
-			@include transform(translate(0,0));
+			// @include transform(translate(0,0));
 			&.off{transition:0s;}
 		}
 		@include transform(translate(0,0));		
 	}
 	&.page2{
 		.wrapperin{&.off{transition:0s;}}
-		@include transform(translate(0,100%));		
+		// @include transform(translate(0,100%));		
 	}
 	&.page3{
 		.wrapperin{
-			@include transform(translate(-100%,0));
+			// @include transform(translate(-100%,0));
 			&.off{transition:0s;}
 		}
-		@include transform(translate(0,0));
+		// @include transform(translate(0,0));
 	}
 	&.page4{
 		.wrapperin{&.off{transition:0s;}}
-		@include transform(translate(0,100%));		
+		// @include transform(translate(0,100%));		
 	}
-	
+	.pagectrl{
+		display: none;
+	}
 	.page2{
 		@include alt(100%,100%);
-		z-index: 0;
-		opacity: 0;
-		transition:0s;
-		&.yes{transition:$pagespeed;}
+		z-index: 0;		
+		// transition:0s;
+		// &.yes{transition:$pagespeed;}
 		&.on{
-			opacity: 1;
 			z-index: 1;
 			.main{
 				.bg{
@@ -380,11 +380,9 @@ $pagespeed:0.5s;
 	.page4{
 		@include alt(100%,100%);
 		z-index: 0;
-		opacity: 0;
-		transition:0s;
-		&.yes{transition:$pagespeed;}
+		// transition:0s;
+		// &.yes{transition:$pagespeed;}
 		&.on{
-			opacity: 1;
 			z-index: 1;
 			.main{
 				.bg{
@@ -480,13 +478,86 @@ $pagespeed:0.5s;
 			}
 		}
 	}	
+	.page5{
+		@include alt(100%,100%);
+		z-index: 0;		
+		&.on{
+			.main{
+				.content{
+					.pd{opacity: 1;}
+					.pd1{@include transform(translate(0px,0));}
+					.pd2{transition-delay:0.5s;@include transform(translate(233px,0));}
+					.pd3{transition-delay:1s;@include transform(translate(467px,0));}
+					.pd4{transition-delay:1.5s;@include transform(translate(702px,0));}
+				}
+			}			
+		}
+		.main{
+			@include amvh(950,488);
+			.title{
+				@include altvh(311,53,319);
+				background: url(../images/page5_title.png) no-repeat;
+				background-size: contain;
+				background-position: center;
+			}
+			.w{
+				@include altvh(950,40,0,70);
+				@include font(15px,20px,#010101,bolder);
+				text-align: center;
+			}
+			.content{
+				@include altvh(950,260,0,130);
+				.pd{
+					transition:0.5s;
+					opacity: 0;					
+				}				
+				.pd1{
+					@include altvh(244,260);
+					@include transform(translate(-20px,0));
+					background: url(../images/page5_pd1.png) no-repeat;
+					background-size: contain;
+					background-position: center;
+					z-index: 0;
+				}
+				.pd2{
+					@include altvh(245,260);
+					@include transform(translate(213px,0));
+					background: url(../images/page5_pd2.png) no-repeat;
+					background-size: contain;
+					background-position: center;
+					z-index: 1;
+				}
+				.pd3{
+					@include altvh(244,260);
+					@include transform(translate(447px,0));
+					background: url(../images/page5_pd3.png) no-repeat;
+					background-size: contain;
+					background-position: center;
+					z-index: 2;
+				}
+				.pd4{
+					@include altvh(244,260);
+					@include transform(translate(682px,0));
+					background: url(../images/page5_pd4.png) no-repeat;
+					background-size: contain;
+					background-position: center;
+					z-index: 3;
+				}
+			}
+			.sw{
+				@include altvh(950,18,0,412);
+				@include font(11px,18px,#333333);
+				text-align: center;
+			}
+		}
+	}
 	.page3{
-		@include alt(100%,100%,100%);
+		@include alt(100%,100%);
 		.scenes_all{
 			@include alt;
 			transition:$pagespeed;
 			&.scenes2{
-				@include transform(translate(0,-100%));
+				// @include transform(translate(0,-100%));
 			}
 			.scenes1{
 				@include alt;
@@ -790,7 +861,7 @@ $pagespeed:0.5s;
 							content:"";
 						}
 						.lt{
-							@include altvh(126,292,94);							
+							@include altvh(213,292,51);							
 							.icon{
 								@include alt;
 								background: url(../images/page3_s2_icon1.png) no-repeat;
@@ -799,7 +870,7 @@ $pagespeed:0.5s;
 								z-index: 0;
 							}
 							.fbshare_btn{
-								@include altvh(120,44,0,190);
+								@include altvh(120,44,46,190);
 								background: url(../images/page3_s2_fbshare_btn.png) no-repeat;
 								background-size: contain;
 								background-position: center;
@@ -951,16 +1022,17 @@ $pagespeed:0.5s;
 		overflow: hidden;
 		.scenes_all{
 			@include alt;
-			transition:$pagespeed;
-			&.scenes2{
-				@include transform(translate(0,-100%));
+			// transition:$pagespeed;
+			&.scenes2{				
+				// @include transform(translate(0,-100%));
 			}
 			&.scenes3{
-				@include transform(translate(0,-200%));
+				// @include transform(translate(0,-200%));
 			}
 			.scenes1{
 				@include alt;
 				overflow: hidden;
+				display: none;
 				.main{
 					@include amvh(332,460);
 					z-index: 1;
@@ -1008,8 +1080,9 @@ $pagespeed:0.5s;
 				}
 			}
 			.scenes2{
-				@include alt(100%,100%,0,100%);
+				@include alt(100%,100%);
 				overflow: hidden;
+				display: none;
 				.main{
 					@include amvh(805,490);
 					z-index: 1;
@@ -1109,6 +1182,7 @@ $pagespeed:0.5s;
 											@include r(70%,15px);
 											clear: both;
 											z-index: 0;
+											pointer-events:none;
 											.n1{
 												@include r(auto,100%);
 												@include font(13px,15px,#161616,bolder);
@@ -1172,8 +1246,9 @@ $pagespeed:0.5s;
 				}
 			}
 			.scenes3{
-				@include alt(100%,100%,0,200%);
+				@include alt(100%,100%);
 				overflow: hidden;
+				display: none;
 				&.on{
 					.main{
 						.bg{
