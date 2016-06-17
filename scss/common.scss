@@ -227,10 +227,7 @@ $pagespeed:0.5s;
 	&.page4{
 		.wrapperin{&.off{transition:0s;}}
 		// @include transform(translate(0,100%));		
-	}
-	.pagectrl{
-		display: none;
-	}
+	}		
 	.page2{
 		@include alt(100%,100%);
 		z-index: 0;		
@@ -568,6 +565,7 @@ $pagespeed:0.5s;
 			.scenes1{
 				@include alt;
 				overflow: hidden;
+				// display: none;
 				&.on{
 					.main{						
 						.bg{
@@ -616,7 +614,7 @@ $pagespeed:0.5s;
 					.content{
 						@include altvh(470,330,72,78);
 						z-index: 5;
-						display: none;
+						// display: none;
 						transition:0s;
 						*{box-sizing:border-box;transition:0s;}
 						.w{
@@ -812,8 +810,9 @@ $pagespeed:0.5s;
 				}
 			}
 			.scenes2{
-				@include alt(100%,100%,0,100%);
+				@include alt;
 				overflow: hidden;
+				// display: none;
 				&.on{
 					.main{
 						.bg{
@@ -1039,7 +1038,7 @@ $pagespeed:0.5s;
 			.scenes1{
 				@include alt;
 				overflow: hidden;
-				display: none;
+				// display: none;
 				.main{
 					@include amvh(332,460);
 					z-index: 1;
@@ -1089,7 +1088,7 @@ $pagespeed:0.5s;
 			.scenes2{
 				@include alt(100%,100%);
 				overflow: hidden;
-				display: none;
+				// display: none;
 				.main{
 					@include amvh(805,490);
 					z-index: 1;
@@ -1255,7 +1254,7 @@ $pagespeed:0.5s;
 			.scenes3{
 				@include alt(100%,100%);
 				overflow: hidden;
-				display: none;
+				// display: none;
 				&.on{
 					.main{
 						.bg{
@@ -1304,7 +1303,7 @@ $pagespeed:0.5s;
 					.content{
 						@include altvh(630,300,10,64);
 						z-index: 9;
-						display: none;
+						// display: none;
 						.lt{
 							@include altvh(257,257,36,21.5);
 							.tree{
@@ -1418,7 +1417,16 @@ $pagespeed:0.5s;
 				}
 			}
 		}
-	}	
+	}
+	.forload{
+		opacity: 0;
+		&.loadend{opacity: 1;}
+	}
+	.pagectrl{
+		// display: none;
+		left:-99999px;
+		&.loadend{left: 0;}		
+	}
 }
 .footer{
 	@include alb(100%,auto);

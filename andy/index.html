@@ -6,14 +6,14 @@
 <meta lang="tw">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=640,user-scalable=no">
-<meta name="description" content="刷牙流血問題，隱藏健康大警訊。立即線上診斷，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！"/>
+<meta name="description" content="刷牙流血問題，隱藏健康大警訊。立即線上檢視，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！"/>
 <meta name="keywords" content="GSK,牙周適,parodontax,牙齦護理,牙膏,刷牙流血,求救,搶救,健康,急診室,免費,領取,試用,索取"/>
 <meta name="copyright" content="design : Medialand @ 2016"/>
 <meta property="og:title" content="【搶救】我的牙齦急診室！"/>
 <meta property="og:type" content="website"/>    
 <meta property="og:image" content="images/fbsc.jpg"/>
 <meta property="og:site_name" content="【搶救】我的牙齦急診室！"/>
-<meta property="og:description" content="刷牙流血問題，隱藏健康大警訊。立即線上診斷，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！"/>
+<meta property="og:description" content="刷牙流血問題，隱藏健康大警訊。立即線上檢視，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！"/>
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 <!---->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -65,9 +65,9 @@
 	</div>
 	<div class="wrapper">
 		<div class="wrapperin">			
-			<div class="page1 pagectrl">
+			<div class="page1 pagectrl forload">
 				<div class="scenes_all">
-					<div class="scenes scenes1">
+					<div class="scenes forload scenes1">
 						<div class="main">
 							<div class="light">
 								<canvas id="light" width="300" height="150"></canvas>
@@ -76,7 +76,7 @@
 							<div class="start_btn"></div>
 						</div>
 					</div>
-					<div class="scenes scenes2">
+					<div class="scenes forload scenes2">
 						<div class="main">
 							<div class="title"></div>
 							<div class="databox">
@@ -86,7 +86,7 @@
 											<div class="q">你的刷牙泡沫有血嗎?</div>
 											<div class="ans">
 												<span><div class="q1ans" data-score="20"></div>有</span>
-												<span><div class="q1ans" data-score="0"></div>無</span>
+												<span><div class="q1ans forq2check" data-score="0"></div>無</span>
 											</div>
 										</li>
 										<li>
@@ -105,11 +105,12 @@
 										</li>
 										<li>
 											<div class="q">你是否有以下症狀?</div>
-											<div class="ans multi">
+											<div class="ans multi forq3">
 												<span><div class="q1ans" data-score="5"></div>口臭</span>
 												<span><div class="q1ans" data-score="5"></div>牙齦充血</span>
 												<span><div class="q1ans" data-score="5"></div>齒牙動搖</span>
 												<span><div class="q1ans" data-score="5"></div>齒間縫隙變大</span>
+												<span><div class="q1ans forq3check" data-score="0"></div>無</span>
 											</div>
 										</li>
 										<li>
@@ -139,10 +140,10 @@
 							<div class="sure_btn"></div>
 						</div>
 					</div>
-					<div class="scenes scenes3">
+					<div class="scenes forload scenes3">
 						<div class="main">
 							<div class="title"></div>
-							<div class="content">
+							<div class="content forload">
 								<div class="lt">
 									<div class="tree">
 										<canvas id="treeSmall" width="380" height="378"></canvas>
@@ -182,10 +183,10 @@
 					</div>
 				</div>				
 			</div>
-			<div class="page2 page pagectrl">
+			<div class="page2 page pagectrl forload">
 				<div class="main">
 					<div class="title"></div>
-					<div class="content">
+					<div class="content forload">
 						<div class="contentin">
 							<div class="t">活動期間</div>
 							<div class="w">2016/06/17 ~ 2016/07/17  23:59止</div>
@@ -236,12 +237,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="page3 pagectrl">
+			<div class="page3 pagectrl forload">
 				<div class="scenes_all">
-					<div class="scenes scenes1">
+					<div class="scenes forload scenes1">
 						<div class="main">
 							<div class="title"></div>
-							<div class="content">
+							<div class="content forload">
 								<div class="w">請填妥下方資料，憑索取簡訊至選定屈臣氏門市，即可兌換</div>
 								<div class="pd"><img src="images/page3_s1_pd.png"></div>
 								<div class="user_data">
@@ -313,10 +314,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="scenes scenes2">
+					<div class="scenes forload scenes2">
 						<div class="main">
 							<div class="title"></div>
-							<div class="content">
+							<div class="content forload">
 								<div class="lt">
 									<div class="icon"></div>
 									<div class="fbshare_btn"></div>
@@ -351,10 +352,10 @@
 					</div>
 				</div>				
 			</div>
-			<div class="page4 page pagectrl">
+			<div class="page4 page pagectrl forload">
 				<div class="main">
 					<div class="title"></div>
-					<div class="content">
+					<div class="content forload">
 						<div id="player"></div>
 					</div>
 					<div class="bg">
@@ -371,11 +372,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="page5 pagectrl">
+			<div class="page5 pagectrl forload">
 				<div class="main">
 					<div class="title"></div>
 					<div class="w">使用牙周適®牙齦護理牙膏 清新薄荷搭配正確刷牙習慣，<br />可有效幫助去除牙菌斑，幫助預防牙齦流血問題*</div>
-					<div class="content">
+					<div class="content forload">
 						<div class="pd pd1"></div>
 						<div class="pd pd2"></div>
 						<div class="pd pd3"></div>

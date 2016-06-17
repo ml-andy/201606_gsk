@@ -32,7 +32,7 @@
     canvasIinit();
     //FB INIT
     webData.sharetitle = '【搶救】我的牙齦急診室！';
-    webData.sharedes = '刷牙流血問題，隱藏健康大警訊。立即線上診斷，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！';
+    webData.sharedes = '刷牙流血問題，隱藏健康大警訊。立即線上檢視，馬上索取【牙周適-牙齦護理牙膏】搶救牙齦！';
     var FBAppId = '1706959846220744';
     FB.init({
       appId      : FBAppId,
@@ -61,8 +61,27 @@
 	});
     $.address.change(addrChange);
 	$(window).load(windowLoad);
-	function windowLoad(){
-        windowInit();
+	function windowLoad(){        
+        var _random = Math.round(Math.random()*1000)+1;
+        $('.user_code').parent().prepend('<img src="'+ webData.backendurl +'api_vcode.ashx?'+_random+'" class="code">');
+        createVideo('AoT4Q6NPjco');
+        for(var i=0;i<$('.forload').length;i++) $('.forload').eq(i).css({'opacity':'1','display':'none'}).addClass('loadend');
+        console.log('completeload');
+        changePage();
+        $.ajax({
+            url: webData.backendurl + 'api_store.ashx',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                webData.shopdata = data.DATA;                
+                if(data.RS=="OK"){
+                    initMap();
+                }else console.log(data.RS);            
+            },error: function(xhr, textStatus, errorThrown) {                
+                showLoading(false);
+                console.log("error:", xhr, textStatus, errorThrown);
+            }
+        });
 	}
     
 
@@ -254,7 +273,11 @@
                 if(data.RS=="OK"){
                     webData.page3scenes=2;
                     changepage3Scenes();
-                }else alert(data.RS);
+                }else{
+                    alert(data.RS);
+                    var _random = Math.round(Math.random()*1000)+1;
+                    $('.user_code').parent().find('.code').attr('src', webData.backendurl +'api_vcode.ashx?'+_random);
+                }
                 showLoading(false);
                 $('.p3s1gobtn').removeClass('on');
             },error: function(xhr, textStatus, errorThrown) {
@@ -271,7 +294,7 @@
             _width = bar.width() - 10,
             _width50 = _width / 2;
         drag.mousedown(function(e){
-            bar.bind('mousemove', dragmove);
+            if(!$('.forq2check').hasClass('on')) bar.bind('mousemove', dragmove);            
         });
         drag.mouseout(function(e){
             bar.unbind('mousemove', dragmove);
@@ -314,11 +337,20 @@
         if(_o.parent().parent().hasClass('multi')){
             //multiple 
             if(_o.hasClass('on')) _o.removeClass('on');
-            else _o.addClass('on');
+            else{
+                if(_o.hasClass('forq3check')) _o.parent().parent().find('.q1ans').removeClass('on');
+                else $('.forq3check').removeClass('on');
+                _o.addClass('on');
+            }
         }else{
             //single
             _o.parent().parent().find('.q1ans').removeClass('on');
             _o.addClass('on');
+        }
+        if($('.forq2check').hasClass('on')){
+            $('.databox .bar .light').attr('style','');
+            $('.databox .bar .cover').attr('style','');
+            webData.dragscore = 0;
         }
         countScore_true();
     }
@@ -337,7 +369,6 @@
         $('.wrapperin .page3 .scenes_all .scenes').stop().fadeOut().eq(webData.page3scenes - 1).stop().fadeIn(300,function(){
             $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
         });
-        // $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
         $('.wrapperin .page3 .scenes_all .scenes .content').hide();
         if(webData.page1hasplay) $('.wrapperin .page3 .scenes_all .scenes2 .btn1 a').hide().eq(1).show();
         else $('.wrapperin .page3 .scenes_all .scenes2 .btn1 a').hide().eq(0).show();
@@ -397,7 +428,7 @@
     }
     function changePage(){    	
         $('.scenes_all .scenes').removeClass('on');
-        $('.pagectrl').removeClass('on').stop().fadeOut();
+        $('.forload').removeClass('on').stop().fadeOut();
         $('.page' + webData.nowpage).stop().fadeIn(300,function(){
             $('.page' + webData.nowpage).addClass('on');
         });
@@ -419,7 +450,10 @@
                 $('.page4').find('.content').fadeIn();
                 webData.player.playVideo();
             },1300);
-        }else{if(webData.player) webData.player.pauseVideo();}
+        }else{
+            try{webData.player.pauseVideo();}
+            catch(err){}
+        }
         if(webData.nowpage==3){
             $('.footer .gobtn').fadeOut();
             changepage3Scenes();
@@ -477,27 +511,7 @@
             'wmode':'transparent'      
           }
         });     
-    }
-    function windowInit(){
-        var _random = Math.round(Math.random()*1000)+1;
-        $('.user_code').parent().prepend('<img src="'+ webData.backendurl +'api_vcode.ashx?'+_random+'" class="code">');
-        createVideo('AoT4Q6NPjco');
-
-        $.ajax({
-            url: webData.backendurl + 'api_store.ashx',
-            type: 'POST',
-            dataType: 'json',
-            success: function(data) {
-                webData.shopdata = data.DATA;                
-                if(data.RS=="OK"){
-                    initMap();
-                }else console.log(data.RS);            
-            },error: function(xhr, textStatus, errorThrown) {
-                showLoading(false);
-                console.log("error:", xhr, textStatus, errorThrown);
-            }
-        });
-    }
+    }    
     function checkLoading(){
         if(webData.HasComplet >= 2) showLoading(false);
         else setTimeout(function(){checkLoading();},300);     
