@@ -3,6 +3,7 @@
 
 	//Init
 	webData.wrp=$('.wrapper');
+    webData.tvcID = 'YWQFfYIWUJE';
     webData.mainurl = 'http://2016parodontax.everydayhealth.com.tw/20160617/';
     webData.backendurl = 'http://2016parodontax.everydayhealth.com.tw/xml/';
     webData.mapimage = 'http://ml-andy.github.io/chinesechess/website/images/mapicon.png';
@@ -44,7 +45,7 @@
 
 
 	//AddListener
-    // $('.goprivacybtn').click(function(){$.address.value("");});
+    $('.menuaFbshare').click(function(){sharefb();});
     $('.fbshare_btn').click(function(){sharefb();});
     $('.fb_share_btn').click(function(){sharefb();});
     $('.agreebox .checkbox').click(function(){if($(this).hasClass('on')){$(this).removeClass('on');}else{$(this).addClass('on');}});
@@ -61,19 +62,18 @@
 	});
     $.address.change(addrChange);
 	$(window).load(windowLoad);
-	function windowLoad(){        
+	function windowLoad(){
         var _random = Math.round(Math.random()*1000)+1;
         $('.user_code').parent().prepend('<img src="'+ webData.backendurl +'api_vcode.ashx?'+_random+'" class="code">');
-        createVideo('AoT4Q6NPjco');
+        createVideo(webData.tvcID);
         for(var i=0;i<$('.forload').length;i++) $('.forload').eq(i).css({'opacity':'1','display':'none'}).addClass('loadend');
-        console.log('completeload');
         changePage();
         $.ajax({
             url: webData.backendurl + 'api_store.ashx',
             type: 'POST',
             dataType: 'json',
             success: function(data) {
-                webData.shopdata = data.DATA;                
+                webData.shopdata = data.DATA;
                 if(data.RS=="OK"){
                     initMap();
                 }else console.log(data.RS);            
@@ -293,16 +293,36 @@
             cover = $(this).find('.cover'),
             _width = bar.width() - 10,
             _width50 = _width / 2;
-        drag.mousedown(function(e){
-            if(!$('.forq2check').hasClass('on')) bar.bind('mousemove', dragmove);            
+
+        var evdown;
+        var evmove;
+        var evup; 
+
+        if(device.mobile()){
+            evdown='touchstart';
+            evmove='touchmove';
+            evup='touchend';
+        }else{
+            evdown='mousedown';
+            evmove='mousemove';
+            evup='mouseup'; 
+        }
+
+        drag.bind(evdown,function(e){
+            e.preventDefault();            
+            if(!$('.forq2check').hasClass('on')) bar.bind(evmove, dragmove);
         });
-        drag.mouseout(function(e){
-            bar.unbind('mousemove', dragmove);
+        drag.bind(evup,function(e){
+            e.preventDefault();            
+            bar.unbind(evmove, dragmove);
         });
-        drag.mouseup(function(e){
-            bar.unbind('mousemove', dragmove);
+        drag.bind('mouseout',function(e){
+            e.preventDefault();            
+            bar.unbind(evmove, dragmove);
         });
+        
         function dragmove(e){
+            if(device.mobile()){e = e.originalEvent.touches[0];}
             var lft = Math.floor(e.pageX-bar.offset().left - (drag.width() / 2));
             _width = $('.databox .bar').width()-10;
             _width50 = _width / 2;
@@ -378,8 +398,11 @@
         },1300);
     }
     function changepage1Scenes(){
-        var _tmp = '';        
+        var _tmp = '';          
         if(webData.page1scenes!=1) _tmp = ' scenes' + webData.page1scenes;
+        else{
+            try{webData.lightStagemovie.gotoAndPlay(0);}catch(err){}
+        }
         $('.wrapperin .page1 .scenes_all').attr('class','scenes_all' + _tmp);
         $('.wrapperin .page1 .scenes_all .scenes').stop().fadeOut().eq(webData.page1scenes - 1).stop().fadeIn(300,function(){
             $('.wrapperin .page1 .scenes_all .scenes').eq(webData.page1scenes-1).addClass('on');
@@ -426,19 +449,23 @@
         }
         _score.html(_nownumber);
     }
-    function changePage(){    	
+    function changePage(){
         $('.scenes_all .scenes').removeClass('on');
         $('.forload').removeClass('on').stop().fadeOut();
         $('.page' + webData.nowpage).stop().fadeIn(300,function(){
             $('.page' + webData.nowpage).addClass('on');
         });
+        try{webData.lightStagemovie.gotoAndStop(1);}catch(err){}
         if(webData.nowpage==1) changepage1Scenes();
         if(webData.nowpage==2){
             $('.page2').find('.content').hide();
             if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
             webData.pg3timeout = setTimeout(function(){
                 $('.page2').find('.content').fadeIn(300,function(){
-                    if(webData.privacy) $('.page2 .content').mCustomScrollbar('scrollTo',$('.page2 .content .t_big'));
+                    if(webData.privacy){
+                        if($(window).width()<=640) $('body,html').animate({scrollTop:$('.page2 .content .t_big').offset().top-90},500);
+                        else $('.page2 .content').mCustomScrollbar('scrollTo',$('.page2 .content .t_big'));
+                    }
                     else $('.page2 .content').mCustomScrollbar('scrollTo',0);
                 });
             },1300);
@@ -448,11 +475,16 @@
             if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
             webData.pg3timeout = setTimeout(function(){
                 $('.page4').find('.content').fadeIn();
-                webData.player.playVideo();
+                if(!device.mobile()) webData.player.playVideo();                
             },1300);
         }else{
-            try{webData.player.pauseVideo();}
+            try{
+                if(!device.mobile()) webData.player.pauseVideo();                
+            }
             catch(err){}
+        }
+        if(webData.nowpage==5){
+             $('.page5').find('.content').show();            
         }
         if(webData.nowpage==3){
             $('.footer .gobtn').fadeOut();
@@ -488,6 +520,7 @@
     }
     function changeArea(){
         $('.shop_addr').html(webData.shopdata[webData.nowCity].STORES[webData.nowArea].ADDRESS);
+        $('.lastnumber').find('span').html(webData.shopdata[webData.nowCity].STORES[webData.nowArea].QTY);
         var _shop = webData.shopdata[webData.nowCity].STORES[webData.nowArea];
         webData.mapOptions = {zoom: 18,center: new google.maps.LatLng(_shop.LAT, _shop.LNG)}
         webData.map = new google.maps.Map(document.getElementById('mapCanvas'),webData.mapOptions); 
@@ -569,7 +602,7 @@
                 window.location.href = "index.html#/page1";
             break;
 		}
-		changePage();
+        if(webData.HasComplet >= 2) changePage();		
     }
   	function showLoading(_t){
   		if(_t) $('.loading').fadeIn();
