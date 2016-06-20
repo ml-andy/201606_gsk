@@ -11,12 +11,13 @@
 	webData.pagespeed = 500;
     webData.page1scenes = 1;
     webData.page3scenes = 1;
+    webData.prepage = '1_1';
     webData.HasComplet = 0;
     if(device.mobile()) webData.device="mobile";
     else webData.device="pc";
     
     $(".databoxin").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
-    $(".page3 .scenes1 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
+    $(".page3_1 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});
     $(".page2 .content").mCustomScrollbar({scrollInertia:300,scrollEasing:'linear'});    
 
     //SCORE INIT
@@ -49,14 +50,14 @@
     $('.btn1 .playbtn').click(function(){tracker_btn('/trial/sendok/test_btn');});
     $('.btn1 .pdbtn').click(function(){tracker_btn('/trial/sendok/product_btn');});
     $('.linkbox a').click(function(){
-        if($(this).index()==0) tracker_btn('/trial/sendok/pchome');
-        else if($(this).index()==1) tracker_btn('/trial/sendok/watsons');
+        if($(this).index()==0) tracker_btn('/trial/sendok/watsons');
+        else if($(this).index()==1) tracker_btn('/trial/sendok/pchome');
         else if($(this).index()==2) tracker_btn('/trial/sendok/cosme');
     });
     $('.goprivacybtn').click(function(){tracker_pg('/trial/rule');});
     $('.shopa').click(function(){
-        if($(this).index()==1) tracker_pg('/buy/pchome');
-        else if($(this).index()==2) tracker_pg('/buy/watsons');
+        if($(this).index()==1) tracker_pg('/buy/watsons');
+        else if($(this).index()==2) tracker_pg('/buy/pchome');
         else if($(this).index()==3) tracker_pg('/buy/cosme');
     });
     $('.menuaFbshare').click(function(){tracker_pg('/fbshare');sharefb();});
@@ -72,11 +73,9 @@
         $.address.value("/page1?scenes=2");
     });
     $('.gobtn').click(function(){
-        if(webData.nowpage==1){
-            if(webData.page1scenes==1) tracker_btn('/index/trial_btn');
-            else if(webData.page1scenes==2) tracker_btn('/test/trial_btn');
-            else if(webData.page1scenes==3) tracker_btn('/result/trial_btn');            
-        }
+        if(webData.nowpage=='1_1') tracker_btn('/index/trial_btn');
+        else if(webData.nowpage=='1_2') tracker_btn('/test/trial_btn');
+        else if(webData.nowpage=='1_3') tracker_btn('/result/trial_btn');
         else if(webData.nowpage==5) tracker_btn('/product/trial_btn');
         else if(webData.nowpage==2) tracker_btn('/rule/trial_btn');        
         
@@ -94,13 +93,16 @@
         var _random = Math.round(Math.random()*1000)+1;
         $('.user_code').parent().prepend('<img src="'+ webData.backendurl +'api_vcode.ashx?'+_random+'" class="code">');
         createVideo(webData.tvcID);
-        for(var i=0;i<$('.forload').length;i++) $('.forload').eq(i).attr('style','display:none;').addClass('loadend');
+        for(var i=0;i<$('.pagectrl').length;i++){
+            $('.pagectrl').eq(i).addClass('loadend');
+        }
         changePage();
         $.ajax({
             url: webData.backendurl + 'api_store.ashx',
             type: 'POST',
             dataType: 'json',
             success: function(data) {
+                console.log(data);
                 webData.shopdata = data.DATA;
                 if(data.RS=="OK"){
                     initMap();
@@ -282,7 +284,7 @@
             mob:_user_data.find('.user_phone').val(),
             email:_user_data.find('.user_mail').val(),
             name:_user_data.find('.user_name').val(),
-            storeid:webData.shopdata[webData.nowCity].STORES[webData.nowArea].ID,
+            storeid:webData.shopdata[webData.nowCity].area[webData.nowArea].store[webData.nowShop].ID,
             ccc:_user_data.find('.user_code').val(),
             device:webData.device
         }
@@ -299,17 +301,19 @@
             type: 'POST',
             dataType: 'json',
             data:webData.senddata,
-            success: function(data) {
+            success: function(data) {                
                 resetUserdata();
                 if(data.RS=="OK"){
-                    webData.page3scenes=2;
-                    changepage3Scenes();
+                    // webData.page3scenes=2;
+                    webData.nowpage = '3_2';
+                    showLoading(false);
+                    changePage();
                 }else{
                     alert(data.RS);
+                    showLoading(false);
                     var _random = Math.round(Math.random()*1000)+1;
                     $('.user_code').parent().find('.code').attr('src', webData.backendurl +'api_vcode.ashx?'+_random);
-                }
-                showLoading(false);
+                }                
                 $('.p3s1gobtn').removeClass('on');
             },error: function(xhr, textStatus, errorThrown) {
                 $('.p3s1gobtn').removeClass('on');
@@ -410,49 +414,9 @@
     	}else{
     		$('.menuDom').removeClass('on');
     	}
-    }
-    function changepage3Scenes(){
-        tracker_pg('/trial/sendok');        
-        var _tmp = '';        
-        if(webData.page3scenes!=1) _tmp = ' scenes' + webData.page3scenes;
-        else{setTimeout(function(){changeCity();},1500);}
-        $('.wrapperin .page3 .scenes_all').attr('class','scenes_all' + _tmp);
-        $('.wrapperin .page3 .scenes_all .scenes').stop().fadeOut().eq(webData.page3scenes - 1).stop().fadeIn(300,function(){
-            $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).addClass('on');
-        });
-        $('.wrapperin .page3 .scenes_all .scenes .content').hide();
-        if(webData.page1hasplay) $('.wrapperin .page3 .scenes_all .scenes2 .btn1 a').hide().eq(1).show();
-        else $('.wrapperin .page3 .scenes_all .scenes2 .btn1 a').hide().eq(0).show();
-        if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
-        webData.pg3timeout = setTimeout(function(){
-            $('.wrapperin .page3 .scenes_all .scenes').eq(webData.page3scenes-1).find('.content').fadeIn();
-        },1300);
-    }
-    function changepage1Scenes(){
-        var _tmp = '';          
-        if(webData.page1scenes!=1) _tmp = ' scenes' + webData.page1scenes;
-        else{
-            try{webData.lightStagemovie.gotoAndPlay(0);}catch(err){}
-        }
-        $('.wrapperin .page1 .scenes_all').attr('class','scenes_all' + _tmp);
-        $('.wrapperin .page1 .scenes_all .scenes').stop().fadeOut().eq(webData.page1scenes - 1).stop().fadeIn(300,function(){
-            $('.wrapperin .page1 .scenes_all .scenes').eq(webData.page1scenes-1).addClass('on');
-        });        
-        if(webData.page1scenes==2){
-            webData.nowscore = 0;
-            webData.nowscorepercent = 0;
-            webData.prescore = 0;
-            webData.dragscore = 0;
-            webData.treeBigFrame = 0;            
-        }
-        if(webData.page1scenes==3){
-            webData.treeSmallFrame = 0;
-            page1secenes3ani(true);
-        }
-        else page1secenes3ani(false);
-    }
+    }     
     function page1secenes3ani(_t){
-        var _scenes3 = $('.wrapperin .page1 .scenes_all .scenes3');        
+        var _scenes3 = $('.wrapperin .page1_3');        
         if(_t){
             webData.page1hasplay = true;
             _scenes3.find('.score').html(0);
@@ -471,7 +435,7 @@
         }        
     }
     function page1secenes3Scoreani(){
-        var _score = $('.wrapperin .page1 .scenes_all .scenes3 .score');
+        var _score = $('.wrapperin .page1_3 .score');
         var _nownumber = _score.text();
         if(_nownumber < webData.nowscorepercent){
             _nownumber=_nownumber*1 + 1;
@@ -480,16 +444,42 @@
         }
         _score.html(_nownumber);
     }
-    function changePage(){
-        console.log('aaaaaaaaaa');
-        $('.scenes_all .scenes').removeClass('on');
-        $('.forload').removeClass('on').stop().fadeOut();
-        $('.page' + webData.nowpage).stop().fadeIn(300,function(){
-            $('.page' + webData.nowpage).addClass('on');
+    function changePage(){        
+        $('.page' + webData.prepage).removeClass('on').fadeOut(300,function(){
+            $('.page' + webData.nowpage).fadeIn(300,function(){
+                $('.page' + webData.nowpage).addClass('on');
+            });
         });
+        webData.prepage = webData.nowpage;
         try{webData.lightStagemovie.gotoAndStop(1);}catch(err){}
-        if(webData.nowpage==1) changepage1Scenes();
-        if(webData.nowpage==2){
+        
+        if(webData.nowpage!='3_1') $('.footer .gobtn').fadeIn();
+        else $('.footer .gobtn').fadeOut();
+
+        if(webData.nowpage!=4){
+            try{
+                if(!device.mobile()) webData.player.pauseVideo();                
+            }
+            catch(err){}
+        }
+
+        if(webData.nowpage=='1_1'){
+            try{webData.lightStagemovie.gotoAndPlay(0);}catch(err){}
+            page1secenes3ani(false);           
+        }
+        else if(webData.nowpage=='1_2'){
+            webData.nowscore = 0;
+            webData.nowscorepercent = 0;
+            webData.prescore = 0;
+            webData.dragscore = 0;
+            webData.treeBigFrame = 0;
+            page1secenes3ani(false);
+        }
+        else if(webData.nowpage=='1_3'){
+            webData.treeSmallFrame = 0;
+            page1secenes3ani(true);
+        }
+        else if(webData.nowpage==2){
             $('.page2').find('.content').hide();
             if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
             webData.pg3timeout = setTimeout(function(){
@@ -500,10 +490,20 @@
                     }
                     else $('.page2 .content').mCustomScrollbar('scrollTo',0);
                 });
-            },1300);
+            },1700);
         }
-        if(webData.nowpage==4){
-             $('.page4').find('.content').hide();
+        else if(webData.nowpage=='3_1'){
+            $('.wrapperin .page3_1 .content').hide();
+            if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
+            webData.pg3timeout = setTimeout(function(){$('.wrapperin .page3_1 .content').fadeIn(300,function(){changeCity();});},1700);
+        }
+        else if(webData.nowpage=='3_2'){
+            tracker_pg('/trial/sendok');
+            if(webData.page1hasplay) $('.wrapperin .page3_2 .btn1 a').hide().eq(1).show();
+            else $('.wrapperin .page3_2 .btn1 a').hide().eq(0).show();            
+        }
+        else if(webData.nowpage==4){
+            $('.page4').find('.content').hide();
             if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
             webData.pg3timeout = setTimeout(function(){
                 $('.page4').find('.content').fadeIn();
@@ -511,30 +511,35 @@
                     webData.player.playVideo();
                     tracker_btn('/tvc/play_btn');
                 }
-            },1300);
-        }else{
-            try{
-                if(!device.mobile()) webData.player.pauseVideo();                
-            }
-            catch(err){}
-        }
-        if(webData.nowpage==5){
-            console.log('page5content show');
+            },1700);
+        }else if(webData.nowpage==5){
             $('#page5content').show();
         }
-        if(webData.nowpage==3){
-            $('.footer .gobtn').fadeOut();
-            changepage3Scenes();
-        }
-        else $('.footer .gobtn').fadeIn();
-    	// webData.wrp.attr('class','wrapper').addClass('page' + webData.nowpage);
-    	webData.prepage = webData.nowpage;    	
+    	    	
     }
     function initMap(){
         //Insert City Data
         webData.nowCity = 0;        
         $('.mapdata .city').html('');
-        for(i in webData.shopdata) $('.mapdata .city').append('<option>'+ webData.shopdata[i].city +'</option>');
+        for(i in webData.shopdata){
+            $('.mapdata .city').append('<option>'+ webData.shopdata[i].city +'</option>');
+            var _area = [];
+            for(j in webData.shopdata[i].STORES){
+                var _right = false;
+                for(var k=0; k<_area.length;k++){
+                    if(webData.shopdata[i].STORES[j].AREA == _area[k].areaname){
+                        _right = true;
+                        _area[k].store.push(webData.shopdata[i].STORES[j]);
+                    }
+                }
+                if(!_right) _area.push({
+                    areaname:webData.shopdata[i].STORES[j].AREA,
+                    store:[webData.shopdata[i].STORES[j]]
+                });
+            }
+            webData.shopdata[i].area = _area;
+        }
+        console.log(webData.shopdata);
         $('.mapdata .city').change(function(){
             webData.nowCity = $('.mapdata .city option:selected').index();
             changeCity();
@@ -542,6 +547,10 @@
         $('.mapdata .area').change(function(){
             webData.nowArea = $('.mapdata .area option:selected').index();
             changeArea();
+        });
+        $('.mapdata .city_area_shop').change(function(){
+            webData.nowShop = $('.mapdata .city_area_shop option:selected').index();
+            changeShop();
         });
 
         //Start
@@ -551,13 +560,23 @@
     function changeCity(){
         webData.nowArea = 0;
         $('.mapdata .area').html('');
-        for(i in webData.shopdata[webData.nowCity].STORES) $('.mapdata .area').append('<option>'+ webData.shopdata[webData.nowCity].STORES[i].STORE +'</option>');
+        for(i in webData.shopdata[webData.nowCity].area){
+            $('.mapdata .area').append('<option>'+ webData.shopdata[webData.nowCity].area[i].areaname +'</option>');
+        }
         changeArea();
     }
     function changeArea(){
-        $('.shop_addr').html(webData.shopdata[webData.nowCity].STORES[webData.nowArea].ADDRESS);
-        $('.lastnumber').find('span').html(webData.shopdata[webData.nowCity].STORES[webData.nowArea].QTY);
-        var _shop = webData.shopdata[webData.nowCity].STORES[webData.nowArea];
+        webData.nowShop = 0;
+        $('.mapdata .city_area_shop').html('');
+        for(i in webData.shopdata[webData.nowCity].area[webData.nowArea].store){            
+            $('.mapdata .city_area_shop').append('<option>'+ webData.shopdata[webData.nowCity].area[webData.nowArea].store[i].STORE +'</option>');
+        }
+        changeShop();
+    }
+    function changeShop(){
+        var _shop = webData.shopdata[webData.nowCity].area[webData.nowArea].store[webData.nowShop];
+        $('.shop_addr').html(_shop.ADDRESS);
+        $('.lastnumber').find('span').html(_shop.QTY);
         webData.mapOptions = {zoom: 18,center: new google.maps.LatLng(_shop.LAT, _shop.LNG)}
         webData.map = new google.maps.Map(document.getElementById('mapCanvas'),webData.mapOptions); 
         var beachMarker = new google.maps.Marker({position: new google.maps.LatLng(_shop.LAT, _shop.LNG),map: webData.map,icon: webData.mapimage});
@@ -594,20 +613,20 @@
 			case '/page1':
 				// console.log('牙齦急診室');
                 tracker_pg('/index');
-				webData.nowpage = 1;
-                webData.page1scenes = 1;
+				webData.nowpage = '1_1';
+                // webData.page1scenes = 1;
 			break;
             case '/page1?scenes=2':
                 // console.log('牙齦緊急檢查');
                 tracker_pg('/test');
-                webData.nowpage = 1;
-                webData.page1scenes = 2;
+                webData.nowpage = '1_2';
+                // webData.page1scenes = 2;
             break;
             case '/page1?scenes=3':
                 // console.log('診斷結果');
                 tracker_pg('/result');
-                webData.nowpage = 1;
-                webData.page1scenes = 3;
+                webData.nowpage = '1_3';
+                // webData.page1scenes = 3;
             break;
 			case '/page2':
 				// console.log('牙齦求診須知');
@@ -623,13 +642,13 @@
 			case '/page3':
 				// console.log('立即索取');
                 tracker_pg('/trial');
-				webData.nowpage = 3;
-                webData.page3scenes = 1;
+				webData.nowpage = '3_1';
+                // webData.page3scenes = 1;
 			break;
             case '/page3?andy':
                 // console.log('索取結果');
-                webData.nowpage = 3;
-                webData.page3scenes = 2;
+                webData.nowpage = '3_2';
+                // webData.page3scenes = 2;
             break;
             case '/page4':
                 // console.log('救救牙齦TVC');
