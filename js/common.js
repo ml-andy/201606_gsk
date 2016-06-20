@@ -45,18 +45,46 @@
 
 
 	//AddListener
-    $('.menuaFbshare').click(function(){sharefb();});
-    $('.fbshare_btn').click(function(){sharefb();});
-    $('.fb_share_btn').click(function(){sharefb();});
+    $('.backbtn').click(function(){tracker_btn('/trial/sendok/index_btn');});
+    $('.btn1 .playbtn').click(function(){tracker_btn('/trial/sendok/test_btn');});
+    $('.btn1 .pdbtn').click(function(){tracker_btn('/trial/sendok/product_btn');});
+    $('.linkbox a').click(function(){
+        if($(this).index()==0) tracker_btn('/trial/sendok/pchome');
+        else if($(this).index()==1) tracker_btn('/trial/sendok/watsons');
+        else if($(this).index()==2) tracker_btn('/trial/sendok/cosme');
+    });
+    $('.goprivacybtn').click(function(){tracker_pg('/trial/rule');});
+    $('.shopa').click(function(){
+        if($(this).index()==1) tracker_pg('/buy/pchome');
+        else if($(this).index()==2) tracker_pg('/buy/watsons');
+        else if($(this).index()==3) tracker_pg('/buy/cosme');
+    });
+    $('.menuaFbshare').click(function(){tracker_pg('/fbshare');sharefb();});
+    $('.fbshare_btn').click(function(){tracker_pg('/trial/sendok/fbshare');sharefb();});
+    $('.fb_share_btn').click(function(){tracker_pg('/fbshare');sharefb();});
     $('.agreebox .checkbox').click(function(){if($(this).hasClass('on')){$(this).removeClass('on');}else{$(this).addClass('on');}});
     $('.p3s1gobtn').click(function(){if(!$(this).hasClass('on')) sendData();});
-    $('.sure_btn').click(function(){p1s2sure();});
+    $('.sure_btn').click(function(){tracker_btn('/test/finish_btn');p1s2sure();});
     $('.databox .bar').each(databoxBar);
     $('.q1ans').click(function(){countScore($(this));});
-    $('.start_btn').click(function(){$.address.value("/page1?scenes=2");});
-    $('.gobtn').click(function(){if($('.menubtn').hasClass('on')) $('.menubtn').trigger('click');});
+    $('.start_btn').click(function(){
+        tracker_btn('/index/start_btn');
+        $.address.value("/page1?scenes=2");
+    });
+    $('.gobtn').click(function(){
+        if(webData.nowpage==1){
+            if(webData.page1scenes==1) tracker_btn('/index/trial_btn');
+            else if(webData.page1scenes==2) tracker_btn('/test/trial_btn');
+            else if(webData.page1scenes==3) tracker_btn('/result/trial_btn');            
+        }
+        else if(webData.nowpage==5) tracker_btn('/product/trial_btn');
+        else if(webData.nowpage==2) tracker_btn('/rule/trial_btn');        
+        
+        if($('.menubtn').hasClass('on')) $('.menubtn').trigger('click');
+    });
     $('.menua').click(function(){$('.menubtn').trigger('click');});	
 	$('.menubtn').click(function(){
+        tracker_pg('/menu');
 		if($(this).hasClass('on')){$(this).removeClass('on');showmenu(false);}
 		else {$(this).addClass('on'); showmenu(true);}
 	});
@@ -66,7 +94,7 @@
         var _random = Math.round(Math.random()*1000)+1;
         $('.user_code').parent().prepend('<img src="'+ webData.backendurl +'api_vcode.ashx?'+_random+'" class="code">');
         createVideo(webData.tvcID);
-        for(var i=0;i<$('.forload').length;i++) $('.forload').eq(i).css({'opacity':'1','display':'none'}).addClass('loadend');
+        for(var i=0;i<$('.forload').length;i++) $('.forload').eq(i).attr('style','display:none;').addClass('loadend');
         changePage();
         $.ajax({
             url: webData.backendurl + 'api_store.ashx',
@@ -78,7 +106,9 @@
                     initMap();
                 }else console.log(data.RS);            
             },error: function(xhr, textStatus, errorThrown) {                
-                showLoading(false);
+                // showLoading(false);
+                webData.HasComplet+=1;
+                checkLoading();
                 console.log("error:", xhr, textStatus, errorThrown);
             }
         });
@@ -112,7 +142,7 @@
                 device:webData.device
             },
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 if(data.RS=="OK"){
 
                 }else console.log(data.RS);
@@ -262,6 +292,7 @@
             $('.p3s1gobtn').removeClass('on');
             return;
         }
+        tracker_btn('/trial/send_btn');
         showLoading(true);
         $.ajax({
             url: webData.backendurl + 'api_save.ashx',
@@ -349,8 +380,7 @@
         }
         //drag
         webData.nowscore = webData.nowscore + webData.dragscore;
-        webData.nowscorepercent = Math.round(webData.nowscore / 85  * 100) - 1;
-        // console.log("webData.dragscore:" + webData.dragscore + "/" + "webData.nowscore:"+webData.nowscore + "/" + "webData.nowscorepercent:" +webData.nowscorepercent);
+        webData.nowscorepercent = Math.round(webData.nowscore / 85  * 100) - 1;        
         webData.prescore = webData.nowscore;
     }
     function countScore(_o){
@@ -382,6 +412,7 @@
     	}
     }
     function changepage3Scenes(){
+        tracker_pg('/trial/sendok');        
         var _tmp = '';        
         if(webData.page3scenes!=1) _tmp = ' scenes' + webData.page3scenes;
         else{setTimeout(function(){changeCity();},1500);}
@@ -450,6 +481,7 @@
         _score.html(_nownumber);
     }
     function changePage(){
+        console.log('aaaaaaaaaa');
         $('.scenes_all .scenes').removeClass('on');
         $('.forload').removeClass('on').stop().fadeOut();
         $('.page' + webData.nowpage).stop().fadeIn(300,function(){
@@ -475,7 +507,10 @@
             if(webData.pg3timeout) clearTimeout(webData.pg3timeout);
             webData.pg3timeout = setTimeout(function(){
                 $('.page4').find('.content').fadeIn();
-                if(!device.mobile()) webData.player.playVideo();                
+                if(!device.mobile()){
+                    webData.player.playVideo();
+                    tracker_btn('/tvc/play_btn');
+                }
             },1300);
         }else{
             try{
@@ -484,14 +519,15 @@
             catch(err){}
         }
         if(webData.nowpage==5){
-             $('.page5').find('.content').show();            
+            console.log('page5content show');
+            $('#page5content').show();
         }
         if(webData.nowpage==3){
             $('.footer .gobtn').fadeOut();
             changepage3Scenes();
         }
         else $('.footer .gobtn').fadeIn();
-    	webData.wrp.attr('class','wrapper').addClass('page' + webData.nowpage);
+    	// webData.wrp.attr('class','wrapper').addClass('page' + webData.nowpage);
     	webData.prepage = webData.nowpage;    	
     }
     function initMap(){
@@ -557,21 +593,25 @@
 			break;
 			case '/page1':
 				// console.log('牙齦急診室');
+                tracker_pg('/index');
 				webData.nowpage = 1;
                 webData.page1scenes = 1;
 			break;
             case '/page1?scenes=2':
                 // console.log('牙齦緊急檢查');
+                tracker_pg('/test');
                 webData.nowpage = 1;
                 webData.page1scenes = 2;
             break;
             case '/page1?scenes=3':
                 // console.log('診斷結果');
+                tracker_pg('/result');
                 webData.nowpage = 1;
                 webData.page1scenes = 3;
             break;
 			case '/page2':
 				// console.log('牙齦求診須知');
+                tracker_pg('/rule');
 				webData.nowpage = 2;
                 webData.privacy = false;
 			break;
@@ -582,6 +622,7 @@
             break;            
 			case '/page3':
 				// console.log('立即索取');
+                tracker_pg('/trial');
 				webData.nowpage = 3;
                 webData.page3scenes = 1;
 			break;
@@ -592,17 +633,19 @@
             break;
             case '/page4':
                 // console.log('救救牙齦TVC');
+                tracker_pg('/tvc');
                 webData.nowpage = 4;
             break;
             case '/page5':
                 // console.log('牙齦健康自救法');
+                tracker_pg('/product');
                 webData.nowpage = 5;
             break;
             default:
                 window.location.href = "index.html#/page1";
             break;
 		}
-        if(webData.HasComplet >= 2) changePage();		
+        if(webData.HasComplet >= 2) changePage();
     }
   	function showLoading(_t){
   		if(_t) $('.loading').fadeIn();

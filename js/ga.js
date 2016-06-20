@@ -7,8 +7,6 @@ ga('create', 'UA-56333580-6', 'auto');
 ga('require', 'displayfeatures');
 ga('send', 'pageview');
 
-tracker_pg('/index');
-
 function tracker_pg( value ){
 	var _value = value;
 	if(device.mobile()) _value = '/m'+_value;	
