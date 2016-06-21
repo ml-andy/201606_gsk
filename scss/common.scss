@@ -1635,12 +1635,11 @@ body{
 				z-index: 1;
 				img{width: 100%;}					
 				.light{
-					@include r(300px,150px);
-					margin-left: 77px;
-					margin-bottom: 25px;
-					margin-top: 25px;
+					@include r(275px,200px);
+					margin-left: 90px;
+					overflow: hidden;
 					canvas{
-						@include alt;
+						@include alt(400px,200px,50%,0,-200px);
 					}					
 				}
 				.title{
