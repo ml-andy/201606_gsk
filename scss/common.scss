@@ -1635,8 +1635,10 @@ body{
 				z-index: 1;
 				img{width: 100%;}					
 				.light{
-					@include r(400px,200px);
-					margin-left: 27px;
+					@include r(300px,150px);
+					margin-left: 77px;
+					margin-bottom: 25px;
+					margin-top: 25px;
 					canvas{
 						@include alt;
 					}					
