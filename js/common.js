@@ -102,7 +102,6 @@
             type: 'POST',
             dataType: 'json',
             success: function(data) {
-                console.log(data);
                 webData.shopdata = data.DATA;
                 if(data.RS=="OK"){
                     initMap();
@@ -539,7 +538,6 @@
             }
             webData.shopdata[i].area = _area;
         }
-        console.log(webData.shopdata);
         $('.mapdata .city').change(function(){
             webData.nowCity = $('.mapdata .city option:selected').index();
             changeCity();
