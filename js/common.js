@@ -4,7 +4,7 @@
 	//Init
 	webData.wrp=$('.wrapper');
     webData.tvcID = 'YWQFfYIWUJE';
-    webData.mainurl = 'http://2016parodontax.everydayhealth.com.tw/20160617/';
+    webData.mainurl = 'http://2016parodontax.everydayhealth.com.tw/';
     webData.backendurl = 'http://2016parodontax.everydayhealth.com.tw/xml/';
     webData.mapimage = 'http://ml-andy.github.io/chinesechess/website/images/mapicon.png';
     webData.creatUsererrortxt = "請填寫完整資料";

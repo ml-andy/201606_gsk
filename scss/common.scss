@@ -2078,7 +2078,7 @@ body{
 			.main{
 				@include r(500px);
 				overflow: visible;
-				margin: 74px 70px 0 70px;
+				margin: 74px pagemargin(500px) 0 pagemargin(500px);
 				z-index: 1;				
 				.title{
 					@include r(100%,60px);
@@ -2096,6 +2096,7 @@ body{
 				.content{
 					@include r(460px);
 					margin: 0 20px;
+					margin-bottom: 100px;
 					overflow: visible;
 					box-sizing:border-box;
 					padding: 0;				
@@ -2154,7 +2155,7 @@ body{
 					}
 				}
 				.bg{
-					@include alt(100%,3580px,0,88px);
+					@include alt(100%,3200px,0,88px);
 					z-index: 0;
 					span{
 						background-color: #e33024;
@@ -2354,7 +2355,7 @@ body{
 				}
 				.p3s1gobtn{
 					@include r(270px,80px);
-					margin-top: 1260px;
+					margin-top: 1350px;
 					margin-left: 115px;
 					margin-right: 115px;
 					cursor: pointer;
@@ -2383,7 +2384,7 @@ body{
 					}
 				}					
 				.bg{
-					@include alt(100%,1260px,0,78px);
+					@include alt(100%,1350px,0,78px);
 					z-index: 0;
 					span{
 						background-color: #e33024;
