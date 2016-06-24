@@ -1014,16 +1014,21 @@ body{
 			}
 		}
 		.main{
-			@include amvh(570,480);
+			@include amvh(630,520);
 			z-index: 1;
 			.title{
-				@include altvh(297,53,136);
+				@include altvh(297,53,166);
 				background: url(../images/page3_s2_title.png) no-repeat;
 				background-size: contain;
 				background-position: center;
 			}
+			.st{
+				@include altvh(630,25,0,64);
+				@include font(16px,25px,#df2f23);
+				text-align: center;
+			}
 			.content{
-				@include altvh(630,292,10,88);
+				@include altvh(630,292,0,128);
 				z-index: 5;
 				&:before{
 					@include am(1px,100%);
@@ -1073,7 +1078,7 @@ body{
 				}
 			}
 			.btn1{
-				@include albvh(191,41,112,10);
+				@include albvh(191,41,142,10);
 				.playbtn{
 					@include alt;							
 					display: none;
@@ -1124,7 +1129,7 @@ body{
 				}
 			}
 			.backbtn{
-				@include albvh(140,41,313,10);
+				@include albvh(140,41,343,10);
 				&:after{
 					content:"";
 					@include alt;
@@ -1146,7 +1151,7 @@ body{
 				}
 			}
 			.bg{
-				@include altvh(630,340,10,64);
+				@include altvh(630,340,10,100);
 				z-index: 0;						
 				span{
 					background-color: #e33024;
@@ -2481,8 +2486,13 @@ body{
 						display: none;
 					}
 				}
+				.st{
+					@include alt(100%,25px,0,76px);
+					@include font(23.5px,25px,#df2f23);
+					text-align: center;
+				}
 				.content{
-					@include alt(460px,590px,20px,76px);
+					@include alt(460px,590px,20px,140px);
 					z-index: 5;
 					&:before{
 						@include am(1px,100%);
@@ -2537,7 +2547,7 @@ body{
 				}
 				.btn1{
 					@include r(291px,58px);
-					margin-top: 620px;
+					margin-top: 665px;
 					.playbtn{
 						@include alt;							
 						display: none;
@@ -2588,7 +2598,7 @@ body{
 					}
 				}
 				.backbtn{
-					@include alb(229px,58px,273px);
+					@include alt(229px,58px,273px,771px);
 					&:after{
 						content:"";
 						@include alt;
@@ -2610,7 +2620,7 @@ body{
 					}
 				}
 				.bg{
-					@include alt(500px,590px,0,76px);
+					@include alt(500px,590px,0,130px);
 					z-index: 0;
 					span{
 						background-color: #e33024;

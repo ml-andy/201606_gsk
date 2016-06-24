@@ -3,7 +3,7 @@
 
 	//Init
 	webData.wrp=$('.wrapper');
-    webData.tvcID = 'YWQFfYIWUJE';
+    webData.tvcID = 'kVkg1R-6AD4';
     webData.mainurl = 'http://2016parodontax.everydayhealth.com.tw/';
     webData.backendurl = 'http://2016parodontax.everydayhealth.com.tw/xml/';
     webData.mapimage = 'http://ml-andy.github.io/chinesechess/website/images/mapicon.png';
@@ -359,15 +359,9 @@
             e.preventDefault();            
             if(!$('.forq2check').hasClass('on')) $('.databox').bind(evmove, dragmove);
         });
-        $('body').bind(evup,function(e){
-            e.preventDefault();            
+        $('.databox').bind(evup,function(e){           
             $('.databox').unbind(evmove, dragmove);
         });
-        // $('.databox').bind('mouseout',function(e){
-        //     e.preventDefault();            
-        //     $('.databox').unbind(evmove, dragmove);
-        //     console.log('zzz');
-        // });
         
         function dragmove(e){
             if(device.mobile()){e = e.originalEvent.touches[0];}
