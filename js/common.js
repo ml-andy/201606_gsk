@@ -294,6 +294,7 @@
             return;
         }
         tracker_btn('/trial/send_btn');
+        conversion_code();
         showLoading(true);
         $.ajax({
             url: webData.backendurl + 'api_save.ashx',
@@ -320,7 +321,20 @@
                 console.log("error:", xhr, textStatus, errorThrown);
             }
         });
-    }    
+    } 
+    function conversion_code(){
+        window.dotq = window.dotq || [];
+        window.dotq.push({
+           'projectId': '10000',
+           'properties': {
+                'pixelId': '415163',
+                'qstrings': {
+                   'et': 'custom',
+                   'ea': 'free'
+                }
+            }
+        });
+    }   
     function databoxBar(){
         var bar = $(this),
             drag = $(this).find('.light'),
