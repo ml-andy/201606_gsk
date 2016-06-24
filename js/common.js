@@ -357,16 +357,17 @@
 
         drag.bind(evdown,function(e){
             e.preventDefault();            
-            if(!$('.forq2check').hasClass('on')) bar.bind(evmove, dragmove);
+            if(!$('.forq2check').hasClass('on')) $('.databox').bind(evmove, dragmove);
         });
-        drag.bind(evup,function(e){
+        $('body').bind(evup,function(e){
             e.preventDefault();            
-            bar.unbind(evmove, dragmove);
+            $('.databox').unbind(evmove, dragmove);
         });
-        drag.bind('mouseout',function(e){
-            e.preventDefault();            
-            bar.unbind(evmove, dragmove);
-        });
+        // $('.databox').bind('mouseout',function(e){
+        //     e.preventDefault();            
+        //     $('.databox').unbind(evmove, dragmove);
+        //     console.log('zzz');
+        // });
         
         function dragmove(e){
             if(device.mobile()){e = e.originalEvent.touches[0];}
