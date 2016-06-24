@@ -580,6 +580,8 @@
         changeShop();
     }
     function changeShop(){
+        var _random = Math.round(Math.random()*1000)+1;
+        $('.user_code').parent().find('.code').attr('src', webData.backendurl +'api_vcode.ashx?'+_random);
         var _shop = webData.shopdata[webData.nowCity].area[webData.nowArea].store[webData.nowShop];
         $('.shop_addr').html(_shop.ADDRESS);
         $('.lastnumber').find('span').html(_shop.QTY);
