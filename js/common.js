@@ -301,13 +301,12 @@
             type: 'POST',
             dataType: 'json',
             data:webData.senddata,
-            success: function(data) {                
-                resetUserdata();
-                if(data.RS=="OK"){
-                    // webData.page3scenes=2;
+            success: function(data) {
+                if(data.RS=="OK"){                    
                     webData.nowpage = '3_2';
                     showLoading(false);
                     changePage();
+                    resetUserdata();
                 }else{
                     alert(data.RS);
                     showLoading(false);
