@@ -64,7 +64,7 @@
     $('.fbshare_btn').click(function(){tracker_pg('/trial/sendok/fbshare');sharefb();});
     $('.fb_share_btn').click(function(){tracker_pg('/fbshare');sharefb();});
     $('.agreebox .checkbox').click(function(){if($(this).hasClass('on')){$(this).removeClass('on');}else{$(this).addClass('on');}});
-    $('.p3s1gobtn').click(function(){if(!$(this).hasClass('on')) sendData();});
+    // $('.p3s1gobtn').click(function(){if(!$(this).hasClass('on')) sendData();});
     $('.sure_btn').click(function(){tracker_btn('/test/finish_btn');p1s2sure();});
     $('.databox .bar').each(databoxBar);
     $('.q1ans').click(function(){countScore($(this));});
