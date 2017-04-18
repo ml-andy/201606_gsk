@@ -30,7 +30,7 @@ gulp.task('js',function(){
 });
 gulp.task('connect', function() {
   $.connect.server({
-  	root: 'D:/yihsien/201606/20160608_gsk/gsk/andy/',
+  	root: './andy/',
   	livereload: true
   });
 });
